@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#181818" />
+  <title>Traditions at Scott - Reusepass</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Main order screen -->
+    <main id="mainView" class="view active main-shell">
+      <section class="sticky-order-shell">
+        <div class="spacer-top"></div>
+
+        <header class="order-header">
+          <button class="icon-btn close-btn" aria-label="Close"><span>×</span></button>
+          <div class="title-wrap"><h1>Traditions at Scott - Reusepass</h1></div>
+<button id="refreshTimeBtn" class="icon-btn gear-btn" aria-label="Order settings">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.3 7.3 0 0 0-1.62-.94L14.38 2.8a.5.5 0 0 0-.49-.4h-3.84a.5.5 0 0 0-.49.4L9.2 5.32c-.57.24-1.11.56-1.61.94L5.2 5.3a.5.5 0 0 0-.61.22L2.67 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.07.64-.07.96 0 .31.02.62.07.93L2.79 14.53a.5.5 0 0 0-.12.64l1.92 3.32a.5.5 0 0 0 .61.22l2.39-.96c.5.39 1.04.7 1.61.94l.36 2.52c.04.24.25.4.49.4h3.84c.24 0 .45-.17.49-.4l.36-2.52c.57-.24 1.11-.56 1.62-.94l2.39.96a.5.5 0 0 0 .61-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.02-1.59ZM12 15.3A3.3 3.3 0 1 1 12 8.7a3.3 3.3 0 0 1 0 6.6Z"/>
+  </svg>
+</button>
+        </header>
+
+        <div class="order-row"><div id="mainOrderNumber" class="order-number">ORDER #131</div></div>
+      </section>
+
+      <div id="mainScrollArea" class="main-scroll-area">
+        <div class="scroll-content">
+          <section class="dark-panel">
+            <section class="status-card">
+              <div class="eta-label">Pickup ETA</div>
+
+              <div class="status-row">
+                <div id="mainTime" class="eta-time">--:--</div>
+                <div class="status-title">Preparing Your Order</div>
+              </div>
+
+              <div class="progress-wrap">
+                <div class="progress-line">
+                  <div class="progress-fill"></div>
+                  <div class="progress-dot"></div>
+                </div>
+                <div class="check-circle" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M6 12.5l4 4L18.5 8"/></svg>
+                </div>
+              </div>
+
+              <div class="works-text">In the works</div>
+
+              <div class="pickup-row">
+                <div>
+                  <div class="pickup-label">Campus pickup at</div>
+                  <div class="pickup-address">160 W Woodruff Ave</div>
+                </div>
+                <a href="#" class="link-purple">Get directions</a>
+              </div>
+
+              <button id="detailsBtn" class="details-btn">View order details</button>
+              <a href="#" class="help-link">Need help with your order?</a>
+            </section>
+          </section>
+
+          <section class="reuse-card">
+            <div class="reuse-heading-row">
+              <div class="recycle-icon" aria-hidden="true"><img src="recycle-reference.png" alt=""></div>
+              <div>
+                <h2>Return containers within 3 days</h2>
+                <a href="#" class="manage-link">Manage containers</a>
+              </div>
+            </div>
+
+            <div class="qr-wrap">
+              <img src="dummy-qr.png" alt="Demo QR code" draggable="false" />
+            </div>
+
+            <div id="qrTime" class="pickup-code-time">--:--</div>
+            <div id="qrDate" class="pickup-code-date">---</div>
+          </section>
+
+          <section class="cancel-section">
+            <h3>Need to cancel?</h3>
+            <p>One or more of the tenders is non-refundable. <a href="#">Get help</a></p>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Order details view -->
+    <main id="detailsView" class="view">
+      <section class="details-page">
+        <div class="details-topbar">
+          <button id="backBtn" class="top-link back-link">‹&nbsp; Back</button>
+          <div class="top-title">View order</div>
+          <button class="top-link">Help</button>
+        </div>
+
+        <div class="merchant-row">
+          <div class="merchant-logo">
+            <div class="logo-word">TRADITION</div>
+            <div class="logo-small">AT SCOTT</div>
+          </div>
+          <div class="merchant-copy">
+            <div class="merchant-name">Traditions at Scott - Reusepass</div>
+            <div class="merchant-sub">160 W Woodruff Ave · (614) 247-8239</div>
+            <div class="merchant-order">Your order: #<span id="detailsOrderNumber">131</span></div>
+          </div>
+          <div class="chevron">›</div>
+        </div>
+
+        <section class="detail-block pickup-block">
+          <h2>Pickup</h2>
+          <div id="detailsPickupDate" class="detail-muted">---</div>
+          <a href="#">Need help?</a>
+        </section>
+
+        <section class="detail-block reuse-detail">
+          <div class="detail-reuse-row">
+            <div class="mini-recycle"><img src="recycle-reference.png" alt=""></div>
+            <div>
+              <div class="reuse-deadline">
+                Return containers by<span id="returnDate">--/--/----</span>
+              </div>
+              <div class="detail-links">
+                <a href="#">Manage containers</a>
+                <span>or</span>
+                <button id="showQrBtn" class="text-button">show QR code</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="detail-block cancel-detail">
+          <h2>Need to cancel?</h2>
+          <p>One or more of the tenders is non-refundable. <a href="#">Get help</a></p>
+        </section>
+
+        <section class="order-info">
+          <h2>Order information</h2>
+          <div class="order-line">
+            <span>1</span>
+            <span>[Dinner] entry to-go</span>
+          </div>
+          <a href="#" class="receipt-link">View receipt</a>
+        </section>
+      </section>
+    </main>
+  </div>
+
+
+  <div id="settingsModal" class="modal-backdrop" aria-hidden="true">
+    <div class="settings-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="settings-sheet-handle"></div>
+      <div class="settings-sheet-header">
+        <h2 id="settingsTitle">Order settings</h2>
+        <button id="closeSettingsBtn" class="sheet-close" aria-label="Close settings">Done</button>
+      </div>
+
+      <label class="settings-label" for="orderNumberInput">Order number</label>
+      <input id="orderNumberInput" class="settings-input" type="number" inputmode="numeric" min="1" step="1" value="131" />
+
+      <button id="saveOrderNumberBtn" class="settings-primary">Update order number</button>
+      <button id="refreshNowBtn" class="settings-secondary">Update time to current time</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

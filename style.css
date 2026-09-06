@@ -1,0 +1,1099 @@
+
+:root {
+  --bg: #151515;
+  --header: #3f3f3f;
+  --purple: #9a83ff;
+  --purple-border: #6752c6;
+  --text: #ffffff;
+  --muted: #b8b8b8;
+  --green: #99dda9;
+  --white-card: #ffffff;
+  --detail-bg: #1b1b1d;
+  --detail-line: #38383a;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+.view { display: none; }
+.view.active { display: block; }
+
+.page, .dark-panel { background: var(--bg); }
+.spacer-top { height: clamp(74px, 17vw, 138px); }
+
+.order-header {
+  display: grid;
+  grid-template-columns: 56px 1fr 56px;
+  align-items: end;
+  gap: 8px;
+  min-height: 170px;
+  padding: 0 18px;
+  background: linear-gradient(to bottom, #181818 0 58%, var(--header) 58% 100%);
+}
+.title-wrap { display: flex; align-items: center; justify-content: center; min-width: 0; padding-bottom: 24px; }
+.title-wrap h1 {
+  margin: 0;
+  font-size: clamp(22px, 5.3vw, 36px);
+  line-height: 1.14;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
+.icon-btn {
+  border: 0;
+  background: transparent;
+  color: var(--purple);
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.close-btn { align-self: end; margin-bottom: 11px; }
+.close-btn span { display:block; font-size:58px; font-weight:700; line-height:.8; }
+.gear-btn { align-self:end; margin-bottom:6px; }
+.gear-btn svg { width:34px; height:34px; fill:currentColor; }
+
+.order-number {
+  height: 94px;
+  display:grid;
+  place-items:center;
+  background: var(--header);
+  font-size: clamp(30px, 7vw, 48px);
+  font-weight:800;
+  letter-spacing:-1px;
+}
+
+.status-card { padding:56px 44px 72px; background:var(--bg); }
+.eta-label { color:var(--muted); font-size:clamp(24px,5vw,34px); margin-bottom:18px; }
+.status-row { display:flex; align-items:baseline; justify-content:space-between; gap:28px; flex-wrap:wrap; }
+.eta-time { font-size:clamp(45px,10vw,66px); line-height:1; font-weight:800; letter-spacing:-2px; white-space:nowrap; }
+.status-title { font-size:clamp(36px,7vw,53px); line-height:1.06; font-weight:800; flex:1 1 420px; }
+.progress-wrap { display:flex; align-items:center; gap:16px; margin-top:72px; }
+.progress-line { position:relative; height:8px; flex:1; background:#4a4a4a; border-radius:999px; }
+.progress-fill { width:48%; height:100%; background:var(--green); border-radius:inherit; }
+.progress-dot { position:absolute; left:calc(100% - 2px); top:50%; transform:translate(-50%,-50%); width:34px; height:34px; border-radius:50%; background:#8bd199; }
+.check-circle { width:82px; height:82px; flex:0 0 82px; border-radius:50%; background:#ececec; display:grid; place-items:center; }
+.check-circle svg { width:44px; height:44px; fill:none; stroke:#20212a; stroke-width:4.4; stroke-linecap:round; stroke-linejoin:round; }
+.works-text { margin-top:26px; font-size:clamp(24px,5vw,33px); color:#e2e2e2; }
+.pickup-row { margin-top:64px; display:flex; justify-content:space-between; align-items:end; gap:22px; }
+.pickup-label { font-size:clamp(25px,5vw,33px); color:#e7e7e7; }
+.pickup-address { margin-top:16px; font-size:clamp(31px,6vw,40px); line-height:1.15; }
+.link-purple { color:var(--purple); font-size:clamp(25px,5vw,34px); white-space:nowrap; }
+.details-btn {
+  width:100%; height:120px; margin-top:70px;
+  border:5px solid var(--purple-border); border-radius:56px;
+  background:transparent; color:var(--purple);
+  font-size:clamp(27px,5vw,36px); font-weight:500; cursor:pointer;
+}
+.help-link { display:inline-block; margin-top:56px; color:var(--purple); font-size:clamp(25px,5vw,34px); }
+
+.reuse-card { background:var(--white-card); color:#090909; padding:52px 44px 86px; }
+.reuse-heading-row { display:flex; align-items:flex-start; gap:24px; }
+.recycle-icon { color:#159650; font-size:50px; line-height:1; margin-top:3px; }
+.reuse-heading-row h2 { margin:0; font-size:clamp(31px,6vw,44px); line-height:1.08; font-weight:800; }
+.manage-link { display:inline-block; margin-top:18px; color:#4438da; font-size:clamp(28px,5vw,38px); }
+.qr-wrap { width:min(350px,52vw); aspect-ratio:1; margin:52px auto 0; padding:14px; background:#f3f3f3; border-radius:12px; }
+.qr-wrap img { width:100%; height:100%; display:block; image-rendering:pixelated; }
+.pickup-code-time { margin-top:52px; text-align:center; font-size:clamp(42px,8vw,56px); font-weight:500; letter-spacing:-1px; }
+.pickup-code-date { margin-top:6px; text-align:center; font-size:clamp(27px,5vw,38px); }
+.cancel-section { min-height:285px; background:#1e1e1e; padding:58px 44px 72px; }
+.cancel-section h3 { margin:0; font-size:clamp(30px,6vw,41px); font-weight:800; }
+.cancel-section p { margin:34px 0 0; color:#ededed; font-size:clamp(25px,5vw,34px); line-height:1.25; }
+.cancel-section a { color:var(--purple); }
+
+/* Order details screen */
+.details-page {
+  min-height: 100vh;
+  background: var(--detail-bg);
+  color: white;
+  padding-bottom: 70px;
+}
+.details-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 10px 18px 14px;
+  background: var(--detail-bg);
+}
+.top-title { font-size: 20px; font-weight: 700; text-align: center; }
+.top-link {
+  border: 0;
+  background: transparent;
+  color: var(--purple);
+  font-size: 19px;
+  padding: 4px 0;
+  cursor: pointer;
+}
+.details-topbar .top-link:last-child { justify-self: end; }
+.back-link { justify-self: start; }
+
+.merchant-row {
+  display: grid;
+  grid-template-columns: 58px 1fr 28px;
+  gap: 14px;
+  align-items: center;
+  padding: 34px 22px 18px;
+}
+.merchant-logo {
+  width: 58px;
+  height: 58px;
+  background: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.logo-word { font-family: Georgia, serif; font-size: 10px; font-weight: 700; white-space: nowrap; }
+.logo-small { font-family: Georgia, serif; font-size: 5px; margin-top: 8px; }
+.merchant-name { font-weight: 700; font-size: 18px; }
+.merchant-sub { color: #a9a9ad; margin-top: 5px; font-size: 15px; }
+.merchant-order { margin-top: 8px; font-size: 15px; }
+.chevron { color:#999; font-size:38px; text-align:right; }
+
+.detail-block { padding: 22px; }
+.detail-block h2, .order-info h2 { margin:0 0 8px; font-size:20px; }
+.detail-muted { color:#aaaab0; font-size:18px; margin-bottom:6px; }
+.detail-block a, .detail-links a, .text-button, .receipt-link { color:var(--purple); }
+.pickup-block { padding-top: 18px; }
+
+.detail-reuse-row { display:flex; align-items:flex-start; gap:10px; }
+.mini-recycle { color:#159650; font-size:28px; line-height:1; }
+.reuse-deadline { font-size:19px; font-weight:700; }
+.reuse-deadline span { margin-left:0; }
+.detail-links { display:flex; gap:10px; align-items:center; margin-top:7px; font-size:18px; }
+.text-button {
+  border:0; background:transparent; padding:0; cursor:pointer; font-size:18px;
+}
+.cancel-detail h2 { margin-bottom:8px; }
+.cancel-detail p { margin:0; font-size:18px; line-height:1.4; }
+
+.order-info {
+  margin-top: 12px;
+  border-top: 1px solid var(--detail-line);
+  padding: 24px 22px 170px;
+  position: relative;
+}
+.order-line { display:grid; grid-template-columns:30px 1fr; gap:0; font-size:18px; margin-top:18px; }
+.receipt-link { position:absolute; right:22px; bottom:18px; font-size:18px; }
+
+@media (max-width: 500px) {
+  .spacer-top { height:92px; }
+  .order-header { min-height:120px; grid-template-columns:42px 1fr 42px; padding-inline:18px; }
+  .title-wrap { padding-bottom:18px; }
+  .title-wrap h1 { font-size:20px; }
+  .close-btn, .gear-btn { width:42px; height:42px; }
+  .close-btn { margin-bottom:8px; }
+  .close-btn span { font-size:44px; }
+  .gear-btn { margin-bottom:6px; }
+  .gear-btn svg { width:27px; height:27px; }
+  .order-number { height:62px; font-size:28px; }
+  .status-card { padding:34px 22px 50px; }
+  .eta-label { font-size:18px; margin-bottom:12px; }
+  .status-row { gap:14px; }
+  .eta-time { font-size:37px; }
+  .status-title { font-size:29px; flex-basis:200px; }
+  .progress-wrap { margin-top:46px; gap:10px; }
+  .progress-line { height:5px; }
+  .progress-dot { width:20px; height:20px; }
+  .check-circle { width:50px; height:50px; flex-basis:50px; }
+  .check-circle svg { width:29px; height:29px; }
+  .works-text { margin-top:18px; font-size:18px; }
+  .pickup-row { margin-top:46px; gap:12px; }
+  .pickup-label { font-size:18px; }
+  .pickup-address { margin-top:12px; font-size:23px; }
+  .link-purple { font-size:18px; }
+  .details-btn { height:74px; margin-top:48px; border-width:3px; border-radius:36px; font-size:22px; }
+  .help-link { margin-top:38px; font-size:20px; }
+  .reuse-card { padding:34px 22px 58px; }
+  .reuse-heading-row { gap:14px; }
+  .recycle-icon { font-size:35px; }
+  .reuse-heading-row h2 { font-size:24px; }
+  .manage-link { margin-top:12px; font-size:22px; }
+  .qr-wrap { width:188px; margin-top:36px; padding:8px; border-radius:7px; }
+  .pickup-code-time { margin-top:34px; font-size:34px; }
+  .pickup-code-date { font-size:20px; }
+  .cancel-section { min-height:180px; padding:38px 22px 48px; }
+  .cancel-section h3 { font-size:24px; }
+  .cancel-section p { margin-top:22px; font-size:18px; }
+
+  .details-topbar { padding-top: calc(10px + env(safe-area-inset-top)); }
+  .merchant-row { padding-top: 28px; }
+}
+
+
+/* Settings bottom sheet */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,.55);
+  display: none;
+  align-items: flex-end;
+}
+.modal-backdrop.open { display: flex; }
+
+.settings-sheet {
+  width: 100%;
+  background: #242426;
+  border-radius: 24px 24px 0 0;
+  padding: 10px 20px calc(24px + env(safe-area-inset-bottom));
+  box-shadow: 0 -18px 40px rgba(0,0,0,.32);
+}
+.settings-sheet-handle {
+  width: 44px;
+  height: 5px;
+  border-radius: 99px;
+  background: #626267;
+  margin: 0 auto 10px;
+}
+.settings-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.settings-sheet-header h2 {
+  margin: 8px 0 20px;
+  font-size: 24px;
+}
+.sheet-close {
+  border: 0;
+  background: transparent;
+  color: var(--purple);
+  font-size: 18px;
+  cursor: pointer;
+}
+.settings-label {
+  display: block;
+  color: #d7d7db;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.settings-input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #4d4d53;
+  border-radius: 12px;
+  background: #171719;
+  color: white;
+  padding: 0 14px;
+  font-size: 20px;
+  outline: none;
+}
+.settings-input:focus {
+  border-color: var(--purple);
+}
+.settings-primary,
+.settings-secondary {
+  width: 100%;
+  min-height: 50px;
+  border-radius: 12px;
+  font-size: 17px;
+  cursor: pointer;
+}
+.settings-primary {
+  margin-top: 16px;
+  border: 0;
+  background: var(--purple);
+  color: #111;
+  font-weight: 700;
+}
+.settings-secondary {
+  margin-top: 10px;
+  border: 1px solid var(--purple);
+  background: transparent;
+  color: var(--purple);
+}
+.fake-pressed {
+  opacity: .52;
+  transform: scale(.985);
+}
+
+
+/* v4: fixed order header + iPhone-style rubber-band scroll area */
+html, body {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+}
+
+#app {
+  height: 100dvh;
+  min-height: 100vh;
+}
+
+.main-shell.active {
+  height: 100dvh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #565656;
+}
+
+.sticky-order-shell {
+  position: relative;
+  z-index: 20;
+  flex: 0 0 auto;
+  background: #181818;
+  box-shadow: 0 1px 0 rgba(255,255,255,.04);
+}
+
+.main-scroll-area {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: auto;
+  background: #565656;
+  touch-action: pan-y;
+}
+
+/*
+  The actual page content ends normally. On iOS/Safari, when the user pulls
+  a little past the top/bottom edge, the scroll container's lighter gray
+  background is revealed, which gives the Snapchat-like rubber-band feel
+  without adding visible extra page content.
+*/
+.scroll-content {
+  min-height: 100%;
+  background: #565656;
+}
+
+.main-scroll-area .dark-panel {
+  background: var(--bg);
+}
+
+.main-scroll-area .cancel-section {
+  margin-bottom: 0;
+}
+
+/* Don't make the fixed header itself scroll. */
+.main-shell .spacer-top,
+.main-shell .order-header,
+.main-shell .order-number {
+  flex-shrink: 0;
+}
+
+/* Keep the details page independently scrollable when opened. */
+#detailsView.active {
+  display: block;
+  height: 100dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--detail-bg);
+}
+
+@media (max-width: 500px) {
+  .main-shell .spacer-top {
+    height: 92px;
+  }
+}
+
+
+/* Reference recycle artwork */
+.recycle-icon,
+.mini-recycle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+.recycle-icon img {
+  display: block;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.mini-recycle img {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+@media (max-width: 500px) {
+  .recycle-icon img {
+    width: 36px;
+    height: 36px;
+  }
+  .mini-recycle img {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+
+/* Exact uploaded dummy QR rendering */
+.qr-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+
+/* FINAL iPhone 14–17 sizing and header separation */
+:root {
+  --iphone-page-max: 430px;
+}
+
+.sticky-order-shell {
+  background: #181818 !important;
+}
+
+.sticky-order-shell .spacer-top {
+  background: #181818 !important;
+}
+
+/* Black title row: only X + title */
+.sticky-order-shell .order-header {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: 44px 1fr 44px !important;
+  align-items: end !important;
+  min-height: 126px !important;
+  padding: 0 14px 18px !important;
+  background: #181818 !important;
+}
+
+.sticky-order-shell .order-header::after {
+  content: "";
+  width: 44px;
+  height: 44px;
+}
+
+.sticky-order-shell .title-wrap {
+  padding-bottom: 0 !important;
+}
+
+.sticky-order-shell .title-wrap h1 {
+  font-size: 20px !important;
+  line-height: 1.15 !important;
+  white-space: nowrap !important;
+}
+
+.sticky-order-shell .close-btn {
+  width: 44px !important;
+  height: 44px !important;
+  margin: 0 !important;
+  align-self: end !important;
+}
+
+.sticky-order-shell .close-btn span {
+  font-size: 44px !important;
+}
+
+/* Gray row: only order + settings cog */
+.order-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  background: #454545;
+}
+
+.order-row .order-number {
+  width: 100%;
+  height: 72px !important;
+  display: grid !important;
+  place-items: center !important;
+  background: transparent !important;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+}
+
+.order-row .row-gear {
+  position: absolute !important;
+  right: 14px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 44px !important;
+  height: 44px !important;
+  margin: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  color: #9a83ff !important;
+  background: transparent !important;
+  border: 0 !important;
+  z-index: 50 !important;
+}
+
+.order-row .row-gear svg {
+  width: 29px !important;
+  height: 29px !important;
+  fill: currentColor !important;
+}
+
+/* Main iPhone layout tuning */
+@media (min-width: 375px) and (max-width: 430px) {
+  .main-shell .spacer-top {
+    height: 74px !important;
+  }
+
+  .status-card {
+    padding: 30px 20px 46px !important;
+  }
+
+  .eta-label {
+    font-size: 17px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .eta-time {
+    font-size: 35px !important;
+    letter-spacing: -1.2px !important;
+  }
+
+  .status-title {
+    font-size: 27px !important;
+    line-height: 1.05 !important;
+  }
+
+  .progress-wrap {
+    margin-top: 40px !important;
+  }
+
+  .works-text {
+    font-size: 17px !important;
+  }
+
+  .pickup-row {
+    margin-top: 40px !important;
+  }
+
+  .pickup-label {
+    font-size: 17px !important;
+  }
+
+  .pickup-address {
+    font-size: 22px !important;
+    margin-top: 10px !important;
+  }
+
+  .link-purple {
+    font-size: 17px !important;
+  }
+
+  .details-btn {
+    height: 70px !important;
+    margin-top: 44px !important;
+    font-size: 21px !important;
+    border-radius: 34px !important;
+  }
+
+  .help-link {
+    font-size: 19px !important;
+    margin-top: 34px !important;
+  }
+
+  .reuse-card {
+    padding: 30px 20px 52px !important;
+  }
+
+  .reuse-heading-row {
+    gap: 12px !important;
+  }
+
+  .reuse-heading-row h2 {
+    font-size: 23px !important;
+  }
+
+  .manage-link {
+    font-size: 21px !important;
+    margin-top: 10px !important;
+  }
+
+  .qr-wrap {
+    width: 186px !important;
+    margin-top: 34px !important;
+    padding: 8px !important;
+  }
+
+  .pickup-code-time {
+    font-size: 33px !important;
+    margin-top: 30px !important;
+  }
+
+  .pickup-code-date {
+    font-size: 19px !important;
+  }
+
+  .cancel-section {
+    padding: 34px 20px 44px !important;
+  }
+
+  .cancel-section h3 {
+    font-size: 23px !important;
+  }
+
+  .cancel-section p {
+    font-size: 17px !important;
+    margin-top: 18px !important;
+  }
+}
+
+/* iPhone 14/15/16/17 Pro Max widths */
+@media (min-width: 431px) and (max-width: 440px) {
+  .main-shell .spacer-top {
+    height: 78px !important;
+  }
+
+  .sticky-order-shell .title-wrap h1 {
+    font-size: 21px !important;
+  }
+
+  .status-card {
+    padding-inline: 22px !important;
+  }
+}
+
+
+/* ===== Pixel-tuned iPhone build ===== */
+
+/* Prevent text/image selection and image-specific long-press menus. */
+html, body, #app {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+.qr-wrap img {
+  pointer-events: none;
+}
+
+/* Fixed header: compact black title row + compact gray order row. */
+.main-shell .spacer-top {
+  display: none !important;
+}
+
+.sticky-order-shell {
+  background: #181818 !important;
+}
+
+.sticky-order-shell .order-header {
+  display: grid !important;
+  grid-template-columns: 42px minmax(0, 1fr) 42px !important;
+  align-items: center !important;
+  min-height: 104px !important;
+  height: 104px !important;
+  padding: calc(env(safe-area-inset-top) * .35) 14px 0 !important;
+  background: #181818 !important;
+  gap: 6px !important;
+}
+
+.sticky-order-shell .order-header::after {
+  display: none !important;
+  content: none !important;
+}
+
+.sticky-order-shell .title-wrap {
+  min-width: 0 !important;
+  padding: 0 !important;
+  justify-content: center !important;
+}
+
+.sticky-order-shell .title-wrap h1 {
+  margin: 0 !important;
+  font-size: 17px !important;
+  line-height: 1 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.25px !important;
+  white-space: nowrap !important;
+}
+
+.sticky-order-shell .close-btn,
+.sticky-order-shell .gear-btn {
+  width: 42px !important;
+  height: 42px !important;
+  margin: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  align-self: center !important;
+  position: static !important;
+  transform: none !important;
+}
+
+.sticky-order-shell .close-btn span {
+  font-size: 41px !important;
+  line-height: .75 !important;
+}
+
+.sticky-order-shell .gear-btn svg {
+  width: 25px !important;
+  height: 25px !important;
+}
+
+.order-row {
+  height: 48px !important;
+  min-height: 48px !important;
+  background: #434343 !important;
+  display: block !important;
+  position: relative !important;
+}
+
+.order-row .order-number {
+  height: 48px !important;
+  width: 100% !important;
+  background: #434343 !important;
+  display: grid !important;
+  place-items: center !important;
+  font-size: 23px !important;
+  line-height: 1 !important;
+  letter-spacing: -.55px !important;
+  font-weight: 800 !important;
+}
+
+/* Main scrollable status section. */
+.status-card {
+  padding: 28px 21px 46px !important;
+}
+
+.eta-label {
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+  margin-bottom: 11px !important;
+}
+
+.status-row {
+  display: grid !important;
+  grid-template-columns: auto 1fr !important;
+  align-items: baseline !important;
+  justify-content: initial !important;
+  column-gap: 14px !important;
+  row-gap: 0 !important;
+  flex-wrap: nowrap !important;
+}
+
+.eta-time {
+  font-size: 28px !important;
+  line-height: 1 !important;
+  letter-spacing: -1px !important;
+  white-space: nowrap !important;
+}
+
+.status-title {
+  min-width: 0 !important;
+  font-size: 23px !important;
+  line-height: 1 !important;
+  letter-spacing: -.55px !important;
+  white-space: nowrap !important;
+  flex: none !important;
+}
+
+.progress-wrap {
+  margin-top: 43px !important;
+  gap: 18px !important;
+}
+
+.progress-line {
+  height: 4px !important;
+}
+
+.progress-dot {
+  width: 16px !important;
+  height: 16px !important;
+  left: 100% !important;
+}
+
+.check-circle {
+  width: 42px !important;
+  height: 42px !important;
+  flex: 0 0 42px !important;
+}
+
+.check-circle svg {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.works-text {
+  margin-top: 22px !important;
+  font-size: 15px !important;
+}
+
+.pickup-row {
+  margin-top: 39px !important;
+  gap: 10px !important;
+}
+
+.pickup-label {
+  font-size: 15px !important;
+}
+
+.pickup-address {
+  margin-top: 10px !important;
+  font-size: 20px !important;
+  line-height: 1.08 !important;
+  white-space: nowrap !important;
+}
+
+.link-purple {
+  font-size: 16px !important;
+}
+
+.details-btn {
+  height: 59px !important;
+  margin-top: 40px !important;
+  border-width: 2px !important;
+  border-radius: 30px !important;
+  font-size: 18px !important;
+}
+
+.help-link {
+  margin-top: 31px !important;
+  font-size: 16px !important;
+}
+
+/* White ReusePass section: narrower/shorter, matching the reference. */
+.reuse-card {
+  padding: 28px 21px 39px !important;
+}
+
+.reuse-heading-row {
+  gap: 10px !important;
+  align-items: flex-start !important;
+}
+
+.recycle-icon img {
+  width: 31px !important;
+  height: 31px !important;
+}
+
+.reuse-heading-row > div:last-child {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+
+.reuse-heading-row h2 {
+  font-size: 19px !important;
+  line-height: 1.05 !important;
+  letter-spacing: -.25px !important;
+  white-space: nowrap !important;
+}
+
+.manage-link {
+  margin-top: 9px !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+
+.qr-wrap {
+  width: 154px !important;
+  height: 154px !important;
+  margin: 27px auto 0 !important;
+  padding: 6px !important;
+  border-radius: 6px !important;
+}
+
+.pickup-code-time {
+  margin-top: 25px !important;
+  font-size: 27px !important;
+  line-height: 1 !important;
+  letter-spacing: -.5px !important;
+}
+
+.pickup-code-date {
+  margin-top: 8px !important;
+  font-size: 17px !important;
+  line-height: 1.1 !important;
+}
+
+.cancel-section {
+  min-height: 0 !important;
+  padding: 29px 21px 33px !important;
+}
+
+.cancel-section h3 {
+  font-size: 19px !important;
+}
+
+.cancel-section p {
+  margin-top: 18px !important;
+  font-size: 16px !important;
+  line-height: 1.25 !important;
+}
+
+/* Order details screen: scale to the supplied reference instead of the oversized build. */
+.details-page {
+  padding-bottom: 0 !important;
+}
+
+.details-topbar {
+  padding: calc(7px + env(safe-area-inset-top)) 15px 8px !important;
+}
+
+.top-title {
+  font-size: 17px !important;
+}
+
+.top-link {
+  font-size: 16px !important;
+}
+
+.merchant-row {
+  grid-template-columns: 48px minmax(0, 1fr) 22px !important;
+  gap: 10px !important;
+  padding: 25px 21px 16px !important;
+}
+
+.merchant-logo {
+  width: 48px !important;
+  height: 48px !important;
+}
+
+.logo-word {
+  font-size: 8px !important;
+}
+
+.logo-small {
+  font-size: 4px !important;
+  margin-top: 6px !important;
+}
+
+.merchant-name {
+  font-size: 15px !important;
+  line-height: 1.05 !important;
+  white-space: nowrap !important;
+}
+
+.merchant-sub {
+  font-size: 13px !important;
+  margin-top: 4px !important;
+  white-space: nowrap !important;
+}
+
+.merchant-order {
+  font-size: 13px !important;
+  margin-top: 6px !important;
+}
+
+.chevron {
+  font-size: 30px !important;
+}
+
+.detail-block {
+  padding: 18px 21px !important;
+}
+
+.detail-block h2,
+.order-info h2 {
+  font-size: 17px !important;
+}
+
+.detail-muted {
+  font-size: 15px !important;
+}
+
+.pickup-block {
+  padding-top: 16px !important;
+}
+
+.detail-reuse-row {
+  gap: 8px !important;
+}
+
+.mini-recycle img {
+  width: 25px !important;
+  height: 25px !important;
+}
+
+.reuse-deadline {
+  font-size: 16px !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+}
+
+.detail-links {
+  gap: 8px !important;
+  margin-top: 6px !important;
+  font-size: 16px !important;
+  white-space: nowrap !important;
+}
+
+.text-button {
+  font-size: 16px !important;
+}
+
+.cancel-detail p {
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+
+.order-info {
+  margin-top: 7px !important;
+  padding: 20px 21px 150px !important;
+}
+
+.order-line {
+  grid-template-columns: 25px 1fr !important;
+  font-size: 16px !important;
+  margin-top: 16px !important;
+}
+
+.receipt-link {
+  right: 21px !important;
+  bottom: 18px !important;
+  font-size: 16px !important;
+}
+
+/* Modern iPhones: 390, 393, 402, 414, 430 CSS-px widths. */
+@media (max-width: 390px) {
+  .sticky-order-shell .title-wrap h1 { font-size: 16px !important; }
+  .status-title { font-size: 21px !important; }
+  .eta-time { font-size: 26px !important; }
+  .reuse-heading-row h2 { font-size: 18px !important; }
+}
+
+@media (min-width: 415px) and (max-width: 440px) {
+  .status-card,
+  .reuse-card,
+  .cancel-section { padding-left: 22px !important; padding-right: 22px !important; }
+}
+
+
+/* Final micro-adjustments */
+.sticky-order-shell .order-header {
+  min-height: 92px !important;
+  height: 92px !important;
+}
+
+/* Keep the gray order row compact beneath it. */
+.order-row,
+.order-row .order-number {
+  height: 48px !important;
+  min-height: 48px !important;
+}
+
+/* Move the progress dot to the end of the green filled section
+   so it visually connects to the green line rather than the gray remainder. */
+.progress-dot {
+  left: 48% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Keep a little separation between the dot and the checkmark. */
+.progress-wrap {
+  gap: 20px !important;
+}
