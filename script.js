@@ -106,19 +106,16 @@ function renderDateTime() {
 
 function openOrders() {
   renderDateTime();
-  const finishingGesture = ordersView.classList.contains("gesture-preview");
-  if (finishingGesture) ordersView.classList.add("active", "shown");
-  resetOrderPull();
   ordersView.classList.add("active");
   ordersView.setAttribute("aria-hidden", "false");
   ordersView.scrollTop = 0;
-  if (!finishingGesture) requestAnimationFrame(() => requestAnimationFrame(() => ordersView.classList.add("shown")));
+  requestAnimationFrame(() => requestAnimationFrame(() => ordersView.classList.add("shown")));
 }
 
 function closeOrdersToTrackedOrder() {
   mainView.classList.add("tracked-mode");
   mainTitle.textContent = "Your order";
-  document.getElementById("mainScrollArea").scrollTop = 0;
+  mainView.scrollTop = 0;
   ordersView.classList.remove("shown");
   window.setTimeout(() => {
     ordersView.classList.remove("active");
@@ -128,71 +125,6 @@ function closeOrdersToTrackedOrder() {
 
 document.getElementById("mainCloseBtn").addEventListener("click", openOrders);
 document.getElementById("trackOrderBtn").addEventListener("click", closeOrdersToTrackedOrder);
-
-/* The tracked order behaves like a physical mobile sheet: the Orders page is
-   revealed under the finger, and only a deliberate pull near the top commits. */
-let returnGestureStartY = 0;
-let returnGestureStartX = 0;
-let returnGestureEligible = false;
-let returnGestureDistance = 0;
-
-function resetOrderPull() {
-  returnGestureEligible = false;
-  returnGestureDistance = 0;
-  mainView.classList.remove("dragging-order", "settling-order");
-  mainView.style.transform = "";
-  ordersView.classList.remove("gesture-preview");
-}
-
-mainView.addEventListener("touchstart", (event) => {
-  if (mainView.querySelector(".main-scroll-area").scrollTop > 3) return;
-  const touch = event.touches[0];
-  if (touch.clientY > window.innerHeight * .48) return;
-  returnGestureStartY = touch.clientY;
-  returnGestureStartX = touch.clientX;
-  returnGestureEligible = true;
-  returnGestureDistance = 0;
-}, { passive:true });
-
-mainView.addEventListener("touchmove", (event) => {
-  if (!returnGestureEligible) return;
-  const touch = event.touches[0];
-  const dy = touch.clientY - returnGestureStartY;
-  const dx = Math.abs(touch.clientX - returnGestureStartX);
-  if (dx > 34 || dy < -14) {
-    resetOrderPull();
-    return;
-  }
-  if (dy > 0) event.preventDefault();
-  if (dy > 12) {
-    returnGestureDistance = Math.min(window.innerHeight * .42, (dy - 12) * .52);
-    const ordersScroller = ordersView.querySelector(".orders-content");
-    if (!ordersView.classList.contains("gesture-preview")) ordersScroller.scrollTop = 0;
-    ordersView.classList.add("gesture-preview");
-    ordersView.setAttribute("aria-hidden", "false");
-    mainView.classList.add("dragging-order");
-    mainView.style.transform = `translate3d(0, ${returnGestureDistance}px, 0)`;
-  }
-}, { passive:false });
-
-["touchend", "touchcancel"].forEach((name) => mainView.addEventListener(name, () => {
-  if (!returnGestureEligible) return;
-  const threshold = 130 + returnGestureStartY * .34;
-  const shouldOpen = name === "touchend" && returnGestureDistance >= threshold;
-  returnGestureEligible = false;
-  mainView.classList.remove("dragging-order");
-  mainView.classList.add("settling-order");
-  if (shouldOpen) {
-    mainView.style.transform = "translate3d(0, 100dvh, 0)";
-    window.setTimeout(openOrders, 220);
-  } else {
-    mainView.style.transform = "translate3d(0, 0, 0)";
-    window.setTimeout(() => {
-      resetOrderPull();
-      if (!ordersView.classList.contains("active")) ordersView.setAttribute("aria-hidden", "true");
-    }, 230);
-  }
-}, { passive:true }));
 
 function renderOrderNumber() {
   mainOrderNumber.textContent = `ORDER #${orderNumber}`;
