@@ -75,7 +75,7 @@
 
           <section class="reuse-card">
             <div class="reuse-heading-row">
-              <div class="recycle-icon" aria-hidden="true"><img src="recycle-green.png?v=solid-green-1" alt=""></div>
+              <div class="recycle-icon" aria-hidden="true"><img src="recycle-thin.png?v=thin-1" alt=""></div>
               <h2>Return containers within 3 days</h2>
               <a href="#" class="manage-link open-manage">Manage containers</a>
             </div>
@@ -192,7 +192,7 @@
 
         <section class="detail-block reuse-detail">
           <div class="detail-reuse-row">
-            <div class="mini-recycle"><img src="recycle-green.png?v=solid-green-1" alt=""></div>
+            <div class="mini-recycle"><img src="recycle-thin.png?v=thin-1" alt=""></div>
             <div>
               <div class="reuse-deadline">
                 Return containers by <span id="returnDate">--/--/----</span>
@@ -221,6 +221,23 @@
         </section>
       </section>
     </main>
+
+    <!-- Reusable container QR sheet -->
+    <div id="qrSheetBackdrop" class="qr-sheet-backdrop" aria-hidden="true">
+      <section class="qr-sheet" role="dialog" aria-modal="true" aria-labelledby="qrSheetTitle">
+        <header class="qr-sheet-header">
+          <button id="closeQrSheetBtn" type="button" aria-label="Back to order details">
+            <svg viewBox="0 0 32 24" aria-hidden="true"><path d="M13 3 3 12l10 9M4 12h25"/></svg>
+          </button>
+          <h1 id="qrSheetTitle">Reusable containers</h1>
+          <span aria-hidden="true"></span>
+        </header>
+        <p>Show QR code to the cashier if requested.</p>
+        <div class="qr-sheet-code"><img src="dummy-qr.png" alt="Demo reusable container QR code" draggable="false"></div>
+        <div id="sheetQrTime" class="qr-sheet-time">--:--</div>
+        <div id="sheetQrDate" class="qr-sheet-date">---</div>
+      </section>
+    </div>
 
     <!-- Help sheet -->
     <main id="helpView" class="sheet-view" aria-hidden="true">

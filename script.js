@@ -12,12 +12,24 @@ const helpView = document.getElementById("helpView");
 const manageView = document.getElementById("manageView");
 const ordersView = document.getElementById("ordersView");
 const mainTitle = document.getElementById("mainTitle");
+const qrSheetBackdrop = document.getElementById("qrSheetBackdrop");
 
 const settingsModal = document.getElementById("settingsModal");
 const orderNumberInput = document.getElementById("orderNumberInput");
 
 let appDateTime = new Date();
-let orderNumber = 131;
+
+function calculateOrderNumber(date) {
+  const openingMinutes = 8 * 60;
+  const closingMinutes = 21 * 60;
+  const currentMinutes = Math.min(closingMinutes, Math.max(openingMinutes,
+    date.getHours() * 60 + date.getMinutes()));
+  const fourPmMinutes = 16 * 60;
+  const ordersPerMinute = 21 / 80; // #69 at 4:00 PM to #90 at 5:20 PM
+  return Math.max(1, Math.round(69 + (currentMinutes - fourPmMinutes) * ordersPerMinute));
+}
+
+let orderNumber = calculateOrderNumber(appDateTime);
 
 function formatMainTime(date) {
   let hours = date.getHours();
@@ -74,9 +86,11 @@ function renderDateTime() {
   qrTime.textContent = formatQrTime(currentTime);
   qrDate.textContent = formatLongDate(currentTime);
   detailsPickupDate.textContent = formatDetailsPickup(appDateTime);
+  document.getElementById("sheetQrTime").textContent = formatQrTime(appDateTime);
+  document.getElementById("sheetQrDate").textContent = formatLongDate(appDateTime);
   const compactTime = new Intl.DateTimeFormat("en-US", {
-    hour: "numeric", minute: "2-digit", hour12: false
-  }).format(currentTime);
+    hour: "numeric", minute: "2-digit", hour12: true
+  }).format(currentTime).replace(" ", "").toLowerCase();
   document.getElementById("ordersReadyTime").textContent = compactTime;
   document.querySelector(".orders-ready-time-copy").textContent = compactTime;
   document.getElementById("ordersPickupTime").textContent = compactTime;
@@ -96,7 +110,7 @@ function openOrders() {
 
 function closeOrdersToTrackedOrder() {
   mainView.classList.add("tracked-mode");
-  mainTitle.textContent = "Traditions at Scott - Reusepass";
+  mainTitle.textContent = "Your order";
   document.getElementById("mainScrollArea").scrollTop = 0;
   ordersView.classList.remove("shown");
   window.setTimeout(() => {
@@ -253,12 +267,25 @@ document.querySelectorAll(".open-manage").forEach((control) => {
 document.getElementById("closeHelpBtn").addEventListener("click", () => closeSheet(helpView));
 document.getElementById("closeManageBtn").addEventListener("click", () => closeSheet(manageView));
 
-document.getElementById("showQrBtn").addEventListener("click", () => {
-  closeDetails(() => {
-    requestAnimationFrame(() => {
-      document.querySelector(".qr-wrap").scrollIntoView({ behavior: "smooth", block: "center" });
-    });
-  });
+function openQrSheet() {
+  renderDateTime();
+  qrSheetBackdrop.classList.add("active");
+  qrSheetBackdrop.setAttribute("aria-hidden", "false");
+  requestAnimationFrame(() => requestAnimationFrame(() => qrSheetBackdrop.classList.add("shown")));
+}
+
+function closeQrSheet() {
+  qrSheetBackdrop.classList.remove("shown");
+  window.setTimeout(() => {
+    qrSheetBackdrop.classList.remove("active");
+    qrSheetBackdrop.setAttribute("aria-hidden", "true");
+  }, 340);
+}
+
+document.getElementById("showQrBtn").addEventListener("click", openQrSheet);
+document.getElementById("closeQrSheetBtn").addEventListener("click", closeQrSheet);
+qrSheetBackdrop.addEventListener("click", (event) => {
+  if (event.target === qrSheetBackdrop) closeQrSheet();
 });
 
 /* Purple links behave like buttons visually, but intentionally do not navigate anywhere. */
