@@ -8,6 +8,8 @@ const detailsPickupDate = document.getElementById("detailsPickupDate");
 const returnDate = document.getElementById("returnDate");
 const mainOrderNumber = document.getElementById("mainOrderNumber");
 const detailsOrderNumber = document.getElementById("detailsOrderNumber");
+const helpView = document.getElementById("helpView");
+const manageView = document.getElementById("manageView");
 
 const settingsModal = document.getElementById("settingsModal");
 const orderNumberInput = document.getElementById("orderNumberInput");
@@ -43,7 +45,7 @@ function formatLongDate(date) {
 
 function formatDetailsPickup(date) {
   const datePart = new Intl.DateTimeFormat("en-US", {
-    month: "long",
+    month: "short",
     day: "numeric",
     year: "numeric"
   }).format(date);
@@ -126,32 +128,73 @@ orderNumberInput.addEventListener("keydown", (event) => {
   }
 });
 
-document.getElementById("detailsBtn").addEventListener("click", () => {
+function openDetails() {
   renderDateTime();
   renderOrderNumber();
-  mainView.classList.remove("active");
   detailsView.classList.add("active");
-  window.scrollTo({ top: 0, behavior: "instant" });
+  detailsView.scrollTop = 0;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => detailsView.classList.add("shown"));
+  });
+}
+
+function closeDetails(afterClose) {
+  detailsView.classList.remove("shown");
+  window.setTimeout(() => {
+    detailsView.classList.remove("active");
+    if (typeof afterClose === "function") afterClose();
+  }, 330);
+}
+
+function openSheet(sheet) {
+  sheet.classList.add("active");
+  sheet.setAttribute("aria-hidden", "false");
+  sheet.scrollTop = 0;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => sheet.classList.add("shown"));
+  });
+}
+
+function closeSheet(sheet) {
+  sheet.classList.remove("shown");
+  window.setTimeout(() => {
+    sheet.classList.remove("active");
+    sheet.setAttribute("aria-hidden", "true");
+  }, 350);
+}
+
+document.getElementById("detailsBtn").addEventListener("click", openDetails);
+document.getElementById("backBtn").addEventListener("click", () => closeDetails());
+
+document.querySelectorAll(".open-help").forEach((control) => {
+  control.addEventListener("click", (event) => {
+    event.preventDefault();
+    openSheet(helpView);
+  });
 });
 
-document.getElementById("backBtn").addEventListener("click", () => {
-  detailsView.classList.remove("active");
-  mainView.classList.add("active");
-  window.scrollTo({ top: 0, behavior: "instant" });
+document.querySelectorAll(".open-manage").forEach((control) => {
+  control.addEventListener("click", (event) => {
+    event.preventDefault();
+    openSheet(manageView);
+  });
 });
+
+document.getElementById("closeHelpBtn").addEventListener("click", () => closeSheet(helpView));
+document.getElementById("closeManageBtn").addEventListener("click", () => closeSheet(manageView));
 
 document.getElementById("showQrBtn").addEventListener("click", () => {
-  detailsView.classList.remove("active");
-  mainView.classList.add("active");
-  requestAnimationFrame(() => {
-    document.querySelector(".qr-wrap").scrollIntoView({ behavior: "smooth", block: "center" });
+  closeDetails(() => {
+    requestAnimationFrame(() => {
+      document.querySelector(".qr-wrap").scrollIntoView({ behavior: "smooth", block: "center" });
+    });
   });
 });
 
 /* Purple links behave like buttons visually, but intentionally do not navigate anywhere. */
 document.querySelectorAll('a[href="#"], .text-button').forEach((control) => {
   control.addEventListener("click", (event) => {
-    if (control.id === "showQrBtn") return; // this one has a real in-app action
+    if (control.id === "showQrBtn" || control.classList.contains("open-help") || control.classList.contains("open-manage")) return;
     event.preventDefault();
     control.classList.add("fake-pressed");
     setTimeout(() => control.classList.remove("fake-pressed"), 130);

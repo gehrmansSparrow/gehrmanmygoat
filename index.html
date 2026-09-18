@@ -66,15 +66,15 @@
               </div>
 
               <button id="detailsBtn" class="details-btn">View order details</button>
-              <a href="#" class="help-link">Need help with your order?</a>
+              <a href="#" class="help-link open-help">Need help with your order?</a>
             </section>
           </section>
 
           <section class="reuse-card">
             <div class="reuse-heading-row">
-              <div class="recycle-icon" aria-hidden="true"><img src="recycle-reference.png" alt=""></div>
+              <div class="recycle-icon" aria-hidden="true"><img src="recycle-reference.png?v=transparent-3" alt=""></div>
               <h2>Return containers within 3 days</h2>
-              <a href="#" class="manage-link">Manage containers</a>
+              <a href="#" class="manage-link open-manage">Manage containers</a>
             </div>
 
             <div class="qr-wrap">
@@ -87,7 +87,7 @@
 
           <section class="cancel-section">
             <h3>Need to cancel?</h3>
-            <p>One or more of the tenders is non-refundable. <a href="#">Get help</a></p>
+            <p>One or more of the tenders is non-refundable. <a href="#" class="open-help">Get help</a></p>
           </section>
         </div>
       </div>
@@ -99,7 +99,7 @@
         <div class="details-topbar">
           <button id="backBtn" class="top-link back-link">‹&nbsp; Back</button>
           <div class="top-title">View order</div>
-          <button class="top-link">Help</button>
+          <button id="detailsHelpBtn" class="top-link open-help">Help</button>
         </div>
 
         <div class="merchant-row">
@@ -118,18 +118,18 @@
         <section class="detail-block pickup-block">
           <h2>Pickup</h2>
           <div id="detailsPickupDate" class="detail-muted">---</div>
-          <a href="#">Need help?</a>
+          <a href="#" class="open-help">Need help?</a>
         </section>
 
         <section class="detail-block reuse-detail">
           <div class="detail-reuse-row">
-            <div class="mini-recycle"><img src="recycle-reference.png" alt=""></div>
+            <div class="mini-recycle"><img src="recycle-reference.png?v=transparent-3" alt=""></div>
             <div>
               <div class="reuse-deadline">
-                Return containers by<span id="returnDate">--/--/----</span>
+                Return containers by <span id="returnDate">--/--/----</span>
               </div>
               <div class="detail-links">
-                <a href="#">Manage containers</a>
+                <a href="#" class="open-manage">Manage containers</a>
                 <span>or</span>
                 <button id="showQrBtn" class="text-button">show QR code</button>
               </div>
@@ -139,7 +139,7 @@
 
         <section class="detail-block cancel-detail">
           <h2>Need to cancel?</h2>
-          <p>One or more of the tenders is non-refundable. <a href="#">Get help</a></p>
+          <p>One or more of the tenders is non-refundable. <a href="#" class="open-help">Get help</a></p>
         </section>
 
         <section class="order-info">
@@ -151,6 +151,59 @@
           <a href="#" class="receipt-link">View receipt</a>
         </section>
       </section>
+    </main>
+
+    <!-- Help sheet -->
+    <main id="helpView" class="sheet-view" aria-hidden="true">
+      <header class="sheet-topbar help-topbar">
+        <button id="closeHelpBtn" class="sheet-x" aria-label="Close help">×</button>
+        <h1>Help</h1>
+        <span aria-hidden="true"></span>
+      </header>
+      <div class="help-content">
+        <section class="help-intro">
+          <h2>Help</h2>
+          <h3>How can we help you?</h3>
+          <p>Contact our Customer Care team 24/7</p>
+        </section>
+        <section class="help-option">
+          <h3>I have an issue with my order</h3>
+          <p>Missing an item, incorrect items, etc.</p>
+          <button type="button">Report order issue</button>
+        </section>
+        <section class="help-option">
+          <h3>I have a random comment</h3>
+          <p>Suggestions, ideas, etc.</p>
+          <button type="button">Leave a comment</button>
+        </section>
+        <section class="help-option">
+          <h3>I care about something else</h3>
+          <p>Answers to common questions about us</p>
+          <button type="button">See our FAQ</button>
+        </section>
+      </div>
+    </main>
+
+    <!-- Manage containers sheet -->
+    <main id="manageView" class="sheet-view manage-view" aria-hidden="true">
+      <header class="sheet-topbar manage-topbar">
+        <button id="closeManageBtn" class="sheet-x" aria-label="Close manage containers">×</button>
+        <h1>Manage containers</h1>
+        <span aria-hidden="true"></span>
+      </header>
+      <div class="manage-progress"><span></span></div>
+      <div class="manage-content">
+        <div class="reusepass-wordmark">ReusePass</div>
+        <h2>Welcome! Select your<br>ReusePass program.</h2>
+        <p class="manage-lead">Reusepass offers reusable programs for a variety of campuses and businesses. Please select the one that is relevant for you.</p>
+        <div class="program-list">
+          <button type="button" class="program-card"><span class="program-logo purple">A</span><strong>Alcorn State University</strong><span class="program-arrow">›</span></button>
+          <button type="button" class="program-card"><span class="program-logo redblue">AU</span><strong>American University</strong><span class="program-arrow">›</span></button>
+          <button type="button" class="program-card"><span class="program-logo gold">A</span><strong>App State</strong><span class="program-arrow">›</span></button>
+          <button type="button" class="program-card"><span class="program-logo red">A</span><strong>Arkansas State<br>University</strong><span class="program-arrow">›</span></button>
+          <button type="button" class="program-card"><span class="program-logo navy">A</span><strong>Assumption University</strong><span class="program-arrow">›</span></button>
+        </div>
+      </div>
     </main>
   </div>
 

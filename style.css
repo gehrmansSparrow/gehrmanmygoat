@@ -1466,3 +1466,183 @@ html, body, #app, .main-shell.active, .main-scroll-area, .scroll-content,
   width:156px !important;
   height:156px !important;
 }
+
+/* ===== Page transitions and reference subpages ===== */
+#detailsView {
+  display:block !important;
+  position:fixed !important;
+  inset:0 !important;
+  z-index:60 !important;
+  height:100dvh !important;
+  overflow-y:auto !important;
+  background:var(--detail-bg) !important;
+  transform:translateX(100%) !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  transition:transform 320ms cubic-bezier(.22,.72,.2,1), visibility 0s linear 320ms !important;
+  will-change:transform;
+}
+#detailsView.active {
+  visibility:visible !important;
+  pointer-events:auto !important;
+  transition-delay:0s !important;
+}
+#detailsView.active.shown {
+  transform:translateX(0) !important;
+}
+
+.details-topbar {
+  min-height:108px !important;
+  grid-template-columns:1fr auto 1fr !important;
+  padding:calc(28px + env(safe-area-inset-top) * .35) 17px 10px !important;
+  border-bottom:1px solid #201c2f !important;
+}
+.top-title { font-size:20px !important; font-weight:800 !important; }
+.top-link { font-size:18px !important; }
+.merchant-row {
+  grid-template-columns:60px minmax(0,1fr) 22px !important;
+  gap:13px !important;
+  padding:17px 17px 10px !important;
+}
+.merchant-logo { width:60px !important; height:60px !important; }
+.merchant-name { font-size:18px !important; }
+.merchant-sub { font-size:15px !important; margin-top:8px !important; }
+.merchant-order { font-size:15px !important; margin-top:18px !important; }
+.detail-block { padding:13px 17px !important; }
+.detail-block h2, .order-info h2 { font-size:17px !important; }
+.detail-muted { margin-top:11px !important; font-size:15px !important; }
+.pickup-block a { display:inline-block; margin-top:5px !important; font-size:16px !important; }
+.reuse-detail { border-top:1px solid #202020 !important; padding-top:12px !important; }
+.detail-reuse-row { gap:8px !important; }
+.mini-recycle img { width:27px !important; height:27px !important; }
+.reuse-deadline { font-size:17px !important; }
+.detail-links { font-size:16px !important; }
+.cancel-detail { padding-top:8px !important; padding-bottom:20px !important; }
+.order-info { border-top:1px solid #202020 !important; padding:18px 17px 150px !important; }
+.receipt-link { font-weight:600 !important; }
+
+.sheet-view {
+  display:block !important;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  height:100dvh;
+  overflow-y:auto;
+  background:#f1f1f3;
+  color:#050505;
+  transform:translateY(100%);
+  visibility:hidden;
+  pointer-events:none;
+  transition:transform 340ms cubic-bezier(.22,.72,.2,1), visibility 0s linear 340ms;
+  will-change:transform;
+  -webkit-overflow-scrolling:touch;
+}
+.sheet-view.active {
+  visibility:visible;
+  pointer-events:auto;
+  transition-delay:0s;
+}
+.sheet-view.active.shown { transform:translateY(0); }
+
+.sheet-topbar {
+  position:sticky;
+  top:0;
+  z-index:4;
+  min-height:108px;
+  display:grid;
+  grid-template-columns:52px 1fr 52px;
+  align-items:end;
+  padding:calc(24px + env(safe-area-inset-top) * .35) 15px 13px;
+  background:#181818;
+  color:white;
+  border-bottom:1px solid #262136;
+}
+.sheet-topbar h1 {
+  margin:0;
+  align-self:end;
+  text-align:center;
+  font-size:20px;
+  line-height:44px;
+  font-weight:800;
+  white-space:nowrap;
+}
+.sheet-x {
+  width:44px;
+  height:44px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#5c35ff;
+  font-size:45px;
+  font-weight:700;
+  line-height:.75;
+  cursor:pointer;
+}
+
+.help-content { background:#f1f1f3; min-height:calc(100dvh - 108px); }
+.help-intro { padding:38px 13px 21px; background:#fafafa; }
+.help-intro h2 { margin:0 0 52px; font-size:25px; }
+.help-intro h3, .help-option h3 { margin:0; font-size:22px; line-height:1.1; }
+.help-intro p, .help-option p { margin:13px 0 0; font-size:17px; line-height:1.25; }
+.help-option { padding:22px 17px 19px; background:#fff; }
+.help-option + .help-option { padding-top:22px; }
+.help-option button {
+  width:100%;
+  height:37px;
+  margin-top:13px;
+  border:1px solid #ddd7ef;
+  border-radius:5px;
+  background:#fff;
+  color:#0876e7;
+  font-size:14px;
+  font-weight:800;
+}
+
+.manage-view { background:#f4f5f7; padding-top:74px; }
+.manage-topbar {
+  min-height:60px;
+  height:60px;
+  padding:8px 15px;
+  align-items:center;
+  border-radius:12px 12px 0 0;
+}
+.manage-topbar h1 { align-self:center; line-height:44px; font-size:20px; }
+.manage-progress { height:13px; background:#fff; }
+.manage-progress span { display:block; width:36%; height:100%; background:#dfff91; }
+.manage-content { padding:51px 19px 60px; color:#14245a; }
+.reusepass-wordmark { font-size:27px; font-weight:900; letter-spacing:-2px; margin-bottom:82px; }
+.manage-content h2 { margin:0; font-size:31px; line-height:1.18; letter-spacing:-1.2px; }
+.manage-lead { margin:16px 0 28px; font-size:17px; line-height:1.25; }
+.program-list { display:grid; gap:13px; }
+.program-card {
+  min-height:90px;
+  display:grid;
+  grid-template-columns:62px 1fr 20px;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  border:0;
+  border-radius:2px;
+  background:white;
+  color:#14245a;
+  text-align:left;
+  box-shadow:0 8px 16px rgba(21,34,73,.06);
+}
+.program-card strong { font-size:20px; line-height:1.15; }
+.program-logo {
+  width:48px; height:48px; display:grid; place-items:center; border-radius:4px;
+  font-size:22px; font-weight:900; background:#eee;
+}
+.program-logo.purple { color:#623078; }
+.program-logo.redblue { color:white; background:linear-gradient(90deg,#0755a0 50%,#e8214f 50%); }
+.program-logo.gold { color:#f2c500; -webkit-text-stroke:1px #222; }
+.program-logo.red { color:#c92130; }
+.program-logo.navy { color:white; background:#07599e; border-radius:50%; }
+.program-arrow { color:#0068e8; font-size:40px; font-weight:300; line-height:1; }
+
+@media (max-width:390px) {
+  .merchant-name { font-size:16px !important; }
+  .merchant-sub { font-size:13px !important; }
+  .manage-content h2 { font-size:28px; }
+  .program-card strong { font-size:18px; }
+}
