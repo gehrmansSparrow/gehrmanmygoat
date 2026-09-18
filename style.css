@@ -1703,13 +1703,13 @@ html, body, #app, .main-shell.active, .main-scroll-area, .scroll-content,
 .orders-view.active { visibility:visible; pointer-events:auto; transition-delay:0s; }
 .orders-view.active.shown { transform:translateY(0); }
 .orders-status-space { height:82px; background:#181818; }
-.orders-content { padding:12px 16px 198px; }
+.orders-content { padding:12px 16px 176px; }
 .orders-content > h1 { margin:0 0 14px; font-size:31px; line-height:1.1; }
 .orders-search { height:48px; border:1px solid #737373; border-radius:27px; display:flex; align-items:center; justify-content:center; color:#cfcfcf; font-size:17px; }
 .orders-search svg { width:24px; height:24px; margin-right:84px; fill:none; stroke:#cfcfcf; stroke-width:2.2; }
 .orders-search span { margin-left:-55px; }
 .orders-content > h2 { margin:42px 0 13px; font-size:16px; }
-.active-order-card { min-height:112px; padding:16px; border:1px solid #4e4e4e; border-radius:9px; display:grid; grid-template-columns:61px minmax(0,1fr) 88px; gap:12px; align-items:start; }
+.active-order-card { height:113px; box-sizing:border-box; padding:15px 16px; border:1px solid #4e4e4e; border-radius:9px; display:grid; grid-template-columns:61px minmax(0,1fr) 88px; gap:12px; align-items:start; }
 .traditions-round-logo, .restaurant-logo { width:61px; height:61px; border-radius:50%; background:#fff; color:#111; display:flex; flex-direction:column; align-items:center; justify-content:center; flex:0 0 auto; }
 .traditions-round-logo strong { font-size:10px; letter-spacing:-.5px; }
 .traditions-round-logo small { font-size:5px; letter-spacing:2px; }
@@ -1719,33 +1719,39 @@ html, body, #app, .main-shell.active, .main-scroll-area, .scroll-content,
 .active-order-copy p, .past-order-row p { margin:0; }
 .active-order-copy b { margin-top:9px; font-size:14px; }
 .track-btn { height:43px; border:0; border-radius:25px; background:#8ccbab; color:#17201d; font-size:16px; align-self:start; }
-.orders-content > .past-heading { margin-top:31px; }
+.orders-content > .past-heading { margin-top:28px; }
 .past-order-list { margin:0 -16px; }
-.past-order-row { min-height:126px; display:flex; gap:13px; align-items:center; padding:16px; border-bottom:1px solid #595959; }
+.past-order-row { min-height:103px; box-sizing:border-box; display:flex; gap:13px; align-items:center; padding:13px 16px; border-bottom:1px solid #595959; }
 .past-order-row > div:nth-child(2) { min-width:0; display:flex; flex-direction:column; gap:5px; font-size:14px; }
 .past-order-row strong { font-size:16px; }
 .past-order-row b { color:#f0a13b; font-weight:500; }
 .crane-logo { color:#d51d58; font-size:12px; font-weight:800; }
+.chipotle-logo { background:#7a211c; color:#fff; border:3px solid #fff; box-sizing:border-box; font-size:8px; font-weight:900; }
 .reorder-row { display:grid; grid-template-columns:61px minmax(0,1fr) 98px; }
 .reorder-row button { height:42px; border:1px solid #707070; border-radius:23px; background:transparent; color:#8f79ff; font-size:16px; }
-.orders-summary { position:fixed; z-index:2; left:0; right:0; bottom:74px; min-height:77px; padding:14px 17px; background:#181818; border-top:1px solid #444; display:grid; grid-template-columns:minmax(0,1fr) auto 45px; gap:12px; align-items:center; }
+.orders-summary { position:fixed; z-index:2; left:0; right:0; bottom:86px; height:66px; box-sizing:border-box; padding:10px 17px; background:#181818; border-top:1px solid #444; display:grid; grid-template-columns:minmax(0,1fr) 103px 45px; gap:9px; align-items:center; }
 .orders-summary > div:not(.orders-summary-mark) { display:flex; flex-direction:column; gap:7px; }
 .orders-summary span { color:#cfcfcf; font-size:14px; }
-.orders-summary strong { font-size:16px; white-space:nowrap; }
-.orders-summary-mark { width:45px; height:45px; border-radius:50%; background:#fff; color:#57516f; display:grid; place-items:center; font-size:25px; font-weight:900; }
-.orders-nav { position:fixed; z-index:2; left:0; right:0; bottom:0; height:74px; padding-bottom:env(safe-area-inset-bottom); background:#181818; border-top:1px solid #444; display:grid; grid-template-columns:repeat(4,1fr); }
+.orders-summary strong { min-width:0; overflow:hidden; text-overflow:ellipsis; font-size:15px; white-space:nowrap; }
+.orders-summary-mark { width:45px; height:45px; border-radius:50%; background:#fff; display:grid; place-items:center; }
+.orders-summary-mark svg { width:29px; height:29px; fill:#5a5572; stroke:#fff; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+.orders-nav { position:fixed; z-index:2; left:0; right:0; bottom:0; height:86px; box-sizing:border-box; padding:8px 0 max(8px,env(safe-area-inset-bottom)); background:#181818; border-top:1px solid #444; display:grid; grid-template-columns:repeat(4,1fr); }
 .orders-nav div { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; color:#cfcfcf; }
-.orders-nav span { font-size:26px; line-height:1; }
-.orders-nav small { font-size:12px; }
-.orders-nav .selected span { color:#ff5a00; }
+.orders-nav svg { width:27px; height:27px; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
+.orders-nav small { font-size:12px; line-height:1.2; }
+.orders-nav .selected svg { color:#ff5a00; }
 .orders-nav .selected small { color:#fff; }
+.orders-nav div:nth-child(2) { position:relative; }
+.offer-dot { position:absolute; top:9px; left:calc(50% + 10px); width:11px; height:11px; border-radius:50%; background:#8f79ff; border:1px solid white; }
 
 @media (max-width:390px) {
-  .orders-status-space { height:70px; }
+  .orders-status-space { height:83px; }
   .orders-content { padding-left:15px; padding-right:15px; }
+  .orders-content > h2 { margin-top:34px; }
   .orders-search svg { margin-right:70px; }
   .active-order-card { grid-template-columns:56px minmax(0,1fr) 82px; padding:13px; gap:10px; }
-  .traditions-round-logo, .restaurant-logo { width:56px; height:56px; }
-  .orders-summary { grid-template-columns:minmax(0,1fr) auto 42px; padding-left:14px; padding-right:14px; }
+  .traditions-round-logo, .restaurant-logo { width:52px; height:52px; }
+  .active-order-card { grid-template-columns:52px minmax(0,1fr) 82px; }
+  .orders-summary { grid-template-columns:minmax(0,1fr) 94px 42px; padding-left:14px; padding-right:14px; }
   .orders-summary strong { font-size:14px; }
 }

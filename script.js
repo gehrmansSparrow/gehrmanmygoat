@@ -69,13 +69,14 @@ function formatSlashDate(date) {
 }
 
 function renderDateTime() {
-  mainTime.textContent = formatMainTime(appDateTime);
-  qrTime.textContent = formatQrTime(appDateTime);
-  qrDate.textContent = formatLongDate(appDateTime);
+  const currentTime = new Date();
+  mainTime.textContent = formatMainTime(currentTime);
+  qrTime.textContent = formatQrTime(currentTime);
+  qrDate.textContent = formatLongDate(currentTime);
   detailsPickupDate.textContent = formatDetailsPickup(appDateTime);
   const compactTime = new Intl.DateTimeFormat("en-US", {
     hour: "numeric", minute: "2-digit", hour12: false
-  }).format(appDateTime);
+  }).format(currentTime);
   document.getElementById("ordersReadyTime").textContent = compactTime;
   document.querySelector(".orders-ready-time-copy").textContent = compactTime;
   document.getElementById("ordersPickupTime").textContent = compactTime;
@@ -95,7 +96,7 @@ function openOrders() {
 
 function closeOrdersToTrackedOrder() {
   mainView.classList.add("tracked-mode");
-  mainTitle.textContent = "Your order";
+  mainTitle.textContent = "Traditions at Scott - Reusepass";
   document.getElementById("mainScrollArea").scrollTop = 0;
   ordersView.classList.remove("shown");
   window.setTimeout(() => {
@@ -106,6 +107,45 @@ function closeOrdersToTrackedOrder() {
 
 document.getElementById("mainCloseBtn").addEventListener("click", openOrders);
 document.getElementById("trackOrderBtn").addEventListener("click", closeOrdersToTrackedOrder);
+
+/* The tracked order behaves like a dismissible mobile sheet. A deliberate
+   hold near the top, or a downward pull, returns to the Orders screen. */
+let returnGestureStartY = 0;
+let returnGestureStartX = 0;
+let returnGestureTimer = null;
+let returnGestureEligible = false;
+
+mainView.addEventListener("touchstart", (event) => {
+  if (!mainView.classList.contains("tracked-mode") || mainView.querySelector(".main-scroll-area").scrollTop > 6) return;
+  const touch = event.touches[0];
+  returnGestureStartY = touch.clientY;
+  returnGestureStartX = touch.clientX;
+  returnGestureEligible = true;
+  clearTimeout(returnGestureTimer);
+  returnGestureTimer = setTimeout(() => {
+    if (returnGestureEligible) openOrders();
+  }, 550);
+}, { passive:true });
+
+mainView.addEventListener("touchmove", (event) => {
+  if (!returnGestureEligible) return;
+  const touch = event.touches[0];
+  const dy = touch.clientY - returnGestureStartY;
+  const dx = Math.abs(touch.clientX - returnGestureStartX);
+  if (dx > 24 || dy < -12) {
+    returnGestureEligible = false;
+    clearTimeout(returnGestureTimer);
+  } else if (dy > 58) {
+    returnGestureEligible = false;
+    clearTimeout(returnGestureTimer);
+    openOrders();
+  }
+}, { passive:true });
+
+["touchend", "touchcancel"].forEach((name) => mainView.addEventListener(name, () => {
+  returnGestureEligible = false;
+  clearTimeout(returnGestureTimer);
+}, { passive:true }));
 
 function renderOrderNumber() {
   mainOrderNumber.textContent = `ORDER #${orderNumber}`;
@@ -233,6 +273,7 @@ document.querySelectorAll('a[href="#"], .text-button').forEach((control) => {
 
 setToCurrentTime();
 renderOrderNumber();
+window.setInterval(renderDateTime, 15000);
 
 
 // Avoid image-specific long-press/context menus and accidental selection.
