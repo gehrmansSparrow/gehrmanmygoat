@@ -152,14 +152,39 @@
       <div class="orders-summary">
         <div><span>Your order from</span><strong>Traditions at Scott - Reusepass</strong></div>
         <div><span>Pickup between</span><strong id="ordersPickupTime">--:--</strong></div>
-        <div class="orders-summary-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M9 5h18v26H9z"/><path d="m12 15 5 5 8-9M12 25l5 5 8-9"/></svg></div>
+        <div class="orders-summary-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="m9 18 6 6 12-13"/></svg></div>
       </div>
       <nav class="orders-nav" aria-label="Primary">
-        <div><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 15 16 5l12 10v13h-8v-8h-8v8H4z"/></svg><small>Home</small></div>
-        <div><span class="offer-dot"></span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m4 8 12-4 12 12-12 12L4 16z"/><circle cx="12" cy="11" r="2"/></svg><small>Offers</small></div>
-        <div class="selected"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 4h16v24l-3-2-3 2-3-2-3 2-4-2z"/><path d="M12 10h8M12 15h8M12 20h6"/></svg><small>Orders</small></div>
-        <div><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><circle cx="16" cy="12" r="4"/><path d="M8 26c1-6 15-6 16 0"/></svg><small>Account</small></div>
+        <button type="button" data-tab="home"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 15 16 5l12 10v13h-8v-8h-8v8H4z"/></svg><small>Home</small></button>
+        <button type="button" data-tab="offers"><span class="offer-dot"></span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m4 8 12-4 12 12-12 12L4 16z"/><circle cx="12" cy="11" r="2"/></svg><small>Offers</small></button>
+        <button type="button" class="selected" data-tab="orders"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 4h16v24l-3-2-3 2-3-2-3 2-4-2z"/><path d="M12 10h8M12 15h8M12 20h6"/></svg><small>Orders</small></button>
+        <button type="button" data-tab="account"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><circle cx="16" cy="12" r="4"/><path d="M8 26c1-6 15-6 16 0"/></svg><small>Account</small></button>
       </nav>
+    </main>
+
+    <main id="homeView" class="tab-page" data-page="home" aria-hidden="true">
+      <div class="tab-scroll home-content">
+        <header class="campus-header"><div class="osu-mark">O</div><div><h1>The Ohio State University</h1><p>Skip the line on campus or enjoy free delivery off-campus.</p></div></header>
+        <div class="campus-tabs"><b>OSU Dining</b><b>Off-campus</b></div>
+        <div class="campus-controls"><strong>1295 Olentangy River Rd⌄</strong><span>Delivery&nbsp;&nbsp; <b>Pickup</b></span></div>
+        <div class="tab-search">⌕ <span>Search for food, groceries, snacks...</span></div>
+        <button class="sort-button">☷&nbsp; Sort</button>
+        <div class="buckid-card"><b>BUCK<span>ID</span></b><p><strong>$31.07 + 54M</strong> on your campus card<br><strong>$0</strong> can be used off-campus</p></div>
+        <h2>Recent On Campus Orders</h2>
+        <div class="campus-cards"><article><div class="food-placeholder"></div><h3>Morrill C-Store</h3><p>Paper Towels</p><b>🚶 2–12 min</b></article><article><div class="food-placeholder"></div><h3>Morrill C-Store</h3><p>Smith 2% Reduced fat Milk</p><b>🚶 2–12 min</b></article></div>
+        <h2>All Restaurants</h2>
+      </div>
+      <div class="shared-bottom"></div>
+    </main>
+
+    <main id="offersView" class="tab-page" data-page="offers" aria-hidden="true">
+      <div class="tab-scroll offers-content"><h1>Offers</h1><div class="saved-line">▰ You've saved <strong>$39.77</strong> ⓘ</div><div class="hero-offer"><span>Your go-to</span><h2>McDonald's</h2><p>BOGO 6 pc. McNuggets®</p><button>See offer</button></div><div class="offer-dots">● ● ●</div><h2>Save Big on $50+ <a>View all</a></h2><div class="deal-grid"><article><div class="deal-photo pizza"></div><p>⭐ 4.5 (277 ratings)</p><h3>Pizza Hut</h3><span>10 min</span></article><article><div class="deal-photo burger"></div><p>⭐ 4.1 (1.4k ratings)</p><h3>Smashburger</h3><span>10 min</span></article></div><h2>Freebie Fridays <a>View all</a></h2></div>
+      <div class="shared-bottom"></div>
+    </main>
+
+    <main id="accountView" class="tab-page" data-page="account" aria-hidden="true">
+      <div class="tab-scroll account-content"><header><a>Need help?</a><h1>Hi, Gehrman</h1></header><div class="plus-card"><b>GRUBHUB<span>+</span></b><button>Manage plan</button><h2>$35.77</h2><p>All-time savings</p></div><div class="account-list"><button>Name</button><button>Email</button><button>Password</button><button>Payment</button><button>Gift cards</button><button>Donate the change</button><button><span>Campus Dining</span><small>The Ohio State University</small></button><button>Addresses</button></div></div>
+      <div class="shared-bottom"></div>
     </main>
 
     <!-- Order details view -->
@@ -171,7 +196,7 @@
           <button id="detailsHelpBtn" class="top-link open-help">Help</button>
         </div>
 
-        <div class="merchant-row">
+        <div id="merchantButton" class="merchant-row" role="button" tabindex="0" aria-label="Open Traditions at Scott restaurant">
           <div class="merchant-logo">
             <div class="logo-word">TRADITION</div>
             <div class="logo-small">AT SCOTT</div>
@@ -220,6 +245,13 @@
           <a id="receiptLink" href="#" class="receipt-link">View receipt</a>
         </section>
       </section>
+    </main>
+
+    <main id="restaurantView" class="restaurant-view" aria-hidden="true">
+      <div class="restaurant-scroll">
+        <header class="restaurant-hero"><button id="closeRestaurantBtn" aria-label="Back">⌄</button><div class="reusepass-banner">ReusePass</div></header>
+        <section class="restaurant-info"><div class="traditions-round-logo restaurant-page-logo"><strong>TRADITIONS</strong><small>AT SCOTT</small></div><p>Breakfast, Lunch, Meal Kit</p><h1>Traditions at Scott<br>- Reusepass</h1><h3>160 W Woodruff Ave</h3><b>Open now</b><a>Pricing &amp; fees info</a><div class="restaurant-stats"><span>Pickup<strong>Ready in 1 min</strong></span><span>Line size<strong>No line</strong></span></div><p class="allergen-copy">All fried items may come into contact with allergens and animal proteins. Nutritional Icons do not take this into account. Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness, especially if you have certain medical conditions. Please indicate any allergies or intolerances in the pickup instructions. For further Allergen Information and Nutrition Facts, please visit our <em>website.</em></p><div class="restaurant-search">⌕ Search Traditions at Scott - Reusepass</div><h2>☷ &nbsp; Entry Swipe and Reusable...</h2><div class="menu-item"><div><h2>Entry Swipe and Reusable Container</h2><p><b>[Dinner]</b> entry to-go<br>$15.00</p></div><div class="menu-photo"></div></div><p class="menu-issues">Menu issues? <b>Let us know</b></p></section>
+      </div>
     </main>
 
     <!-- Reusable container QR sheet -->
@@ -306,6 +338,13 @@
           <button type="button" class="program-card"><span class="program-logo gold">A</span><strong>App State</strong><span class="program-arrow">›</span></button>
           <button type="button" class="program-card"><span class="program-logo red">A</span><strong>Arkansas State<br>University</strong><span class="program-arrow">›</span></button>
           <button type="button" class="program-card"><span class="program-logo navy">A</span><strong>Assumption University</strong><span class="program-arrow">›</span></button>
+          <button type="button" class="program-card"><span class="program-logo gold">AU</span><strong>Auburn University</strong><span class="program-arrow">›</span></button>
+          <button type="button" class="program-card"><span class="program-logo red">BU</span><strong>Boston University</strong><span class="program-arrow">›</span></button>
+          <button type="button" class="program-card"><span class="program-logo orange">BG</span><strong>Bowling Green State University</strong><span class="program-arrow">›</span></button>
+          <button type="button" class="program-card"><span class="program-logo red">C</span><strong>Cornell University</strong><span class="program-arrow">›</span></button>
+          <button type="button" class="program-card"><span class="program-logo navy">E</span><strong>Emory University</strong><span class="program-arrow">›</span></button>
+          <button type="button" class="program-card"><span class="program-logo redblue">FSU</span><strong>Florida State University</strong><span class="program-arrow">›</span></button>
+          <button type="button" class="program-card"><span class="program-logo navy">G</span><strong>Georgetown University</strong><span class="program-arrow">›</span></button>
         </div>
       </div>
     </main>

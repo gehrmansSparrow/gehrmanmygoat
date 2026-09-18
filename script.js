@@ -14,6 +14,7 @@ const ordersView = document.getElementById("ordersView");
 const mainTitle = document.getElementById("mainTitle");
 const qrSheetBackdrop = document.getElementById("qrSheetBackdrop");
 const receiptBackdrop = document.getElementById("receiptBackdrop");
+const restaurantView = document.getElementById("restaurantView");
 
 const settingsModal = document.getElementById("settingsModal");
 const orderNumberInput = document.getElementById("orderNumberInput");
@@ -94,7 +95,9 @@ function renderDateTime() {
   }).format(currentTime).replace(" ", "").toLowerCase();
   document.getElementById("ordersReadyTime").textContent = compactTime;
   document.querySelector(".orders-ready-time-copy").textContent = compactTime;
-  document.getElementById("ordersPickupTime").textContent = compactTime;
+  document.querySelectorAll("#ordersPickupTime, .shared-pickup-time").forEach((node) => {
+    node.textContent = compactTime;
+  });
 
   const due = new Date(appDateTime);
   due.setDate(due.getDate() + 3);
@@ -103,10 +106,13 @@ function renderDateTime() {
 
 function openOrders() {
   renderDateTime();
+  const finishingGesture = ordersView.classList.contains("gesture-preview");
+  if (finishingGesture) ordersView.classList.add("active", "shown");
+  resetOrderPull();
   ordersView.classList.add("active");
   ordersView.setAttribute("aria-hidden", "false");
   ordersView.scrollTop = 0;
-  requestAnimationFrame(() => requestAnimationFrame(() => ordersView.classList.add("shown")));
+  if (!finishingGesture) requestAnimationFrame(() => requestAnimationFrame(() => ordersView.classList.add("shown")));
 }
 
 function closeOrdersToTrackedOrder() {
@@ -123,23 +129,29 @@ function closeOrdersToTrackedOrder() {
 document.getElementById("mainCloseBtn").addEventListener("click", openOrders);
 document.getElementById("trackOrderBtn").addEventListener("click", closeOrdersToTrackedOrder);
 
-/* The tracked order behaves like a dismissible mobile sheet. A deliberate
-   hold near the top, or a downward pull, returns to the Orders screen. */
+/* The tracked order behaves like a physical mobile sheet: the Orders page is
+   revealed under the finger, and only a deliberate pull near the top commits. */
 let returnGestureStartY = 0;
 let returnGestureStartX = 0;
-let returnGestureTimer = null;
 let returnGestureEligible = false;
+let returnGestureDistance = 0;
+
+function resetOrderPull() {
+  returnGestureEligible = false;
+  returnGestureDistance = 0;
+  mainView.classList.remove("dragging-order", "settling-order");
+  mainView.style.transform = "";
+  ordersView.classList.remove("gesture-preview");
+}
 
 mainView.addEventListener("touchstart", (event) => {
-  if (!mainView.classList.contains("tracked-mode") || mainView.querySelector(".main-scroll-area").scrollTop > 6) return;
+  if (!mainView.classList.contains("tracked-mode") || mainView.querySelector(".main-scroll-area").scrollTop > 3) return;
   const touch = event.touches[0];
+  if (touch.clientY > window.innerHeight * .62) return;
   returnGestureStartY = touch.clientY;
   returnGestureStartX = touch.clientX;
   returnGestureEligible = true;
-  clearTimeout(returnGestureTimer);
-  returnGestureTimer = setTimeout(() => {
-    if (returnGestureEligible) openOrders();
-  }, 550);
+  returnGestureDistance = 0;
 }, { passive:true });
 
 mainView.addEventListener("touchmove", (event) => {
@@ -147,19 +159,37 @@ mainView.addEventListener("touchmove", (event) => {
   const touch = event.touches[0];
   const dy = touch.clientY - returnGestureStartY;
   const dx = Math.abs(touch.clientX - returnGestureStartX);
-  if (dx > 24 || dy < -12) {
-    returnGestureEligible = false;
-    clearTimeout(returnGestureTimer);
-  } else if (dy > 58) {
-    returnGestureEligible = false;
-    clearTimeout(returnGestureTimer);
-    openOrders();
+  if (dx > 34 || dy < -14) {
+    resetOrderPull();
+    return;
   }
-}, { passive:true });
+  if (dy > 6) {
+    event.preventDefault();
+    returnGestureDistance = Math.min(window.innerHeight * .56, dy * .72);
+    ordersView.classList.add("gesture-preview");
+    ordersView.setAttribute("aria-hidden", "false");
+    mainView.classList.add("dragging-order");
+    mainView.style.transform = `translate3d(0, ${returnGestureDistance}px, 0)`;
+  }
+}, { passive:false });
 
 ["touchend", "touchcancel"].forEach((name) => mainView.addEventListener(name, () => {
+  if (!returnGestureEligible) return;
+  const threshold = 105 + returnGestureStartY * .24;
+  const shouldOpen = name === "touchend" && returnGestureDistance >= threshold;
   returnGestureEligible = false;
-  clearTimeout(returnGestureTimer);
+  mainView.classList.remove("dragging-order");
+  mainView.classList.add("settling-order");
+  if (shouldOpen) {
+    mainView.style.transform = "translate3d(0, 100dvh, 0)";
+    window.setTimeout(openOrders, 220);
+  } else {
+    mainView.style.transform = "translate3d(0, 0, 0)";
+    window.setTimeout(() => {
+      resetOrderPull();
+      if (!ordersView.classList.contains("active")) ordersView.setAttribute("aria-hidden", "true");
+    }, 230);
+  }
 }, { passive:true }));
 
 function renderOrderNumber() {
@@ -308,6 +338,64 @@ document.getElementById("receiptLink").addEventListener("click", openReceipt);
 receiptBackdrop.addEventListener("click", (event) => {
   if (event.target === receiptBackdrop) closeReceipt();
 });
+
+/* Reuse the fixed order summary and bottom navigation on every primary tab. */
+document.querySelectorAll(".shared-bottom").forEach((host) => {
+  const summary = ordersView.querySelector(".orders-summary").cloneNode(true);
+  const pickup = summary.querySelector("#ordersPickupTime");
+  if (pickup) {
+    pickup.removeAttribute("id");
+    pickup.classList.add("shared-pickup-time");
+  }
+  host.append(summary, ordersView.querySelector(".orders-nav").cloneNode(true));
+});
+
+const tabPages = [...document.querySelectorAll(".tab-page")];
+function openTab(name) {
+  tabPages.forEach((page) => {
+    const active = page.dataset.page === name;
+    page.classList.toggle("active", active);
+    page.setAttribute("aria-hidden", String(!active));
+    if (active) page.querySelector(".tab-scroll").scrollTop = 0;
+  });
+  document.querySelectorAll("[data-tab]").forEach((button) => {
+    button.classList.toggle("selected", button.dataset.tab === name);
+  });
+  if (name === "orders") {
+    ordersView.classList.add("active", "shown");
+    ordersView.setAttribute("aria-hidden", "false");
+  }
+  renderDateTime();
+}
+
+document.querySelectorAll("[data-tab]").forEach((button) => {
+  button.addEventListener("click", () => openTab(button.dataset.tab));
+});
+
+function openRestaurant() {
+  restaurantView.classList.add("active");
+  restaurantView.setAttribute("aria-hidden", "false");
+  restaurantView.querySelector(".restaurant-scroll").scrollTop = 0;
+  requestAnimationFrame(() => requestAnimationFrame(() => restaurantView.classList.add("shown")));
+}
+
+function closeRestaurant() {
+  restaurantView.classList.remove("shown");
+  window.setTimeout(() => {
+    restaurantView.classList.remove("active");
+    restaurantView.setAttribute("aria-hidden", "true");
+  }, 320);
+}
+
+const merchantButton = document.getElementById("merchantButton");
+merchantButton.addEventListener("click", openRestaurant);
+merchantButton.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openRestaurant();
+  }
+});
+document.getElementById("closeRestaurantBtn").addEventListener("click", closeRestaurant);
 
 /* Purple links behave like buttons visually, but intentionally do not navigate anywhere. */
 document.querySelectorAll('a[href="#"], .text-button').forEach((control) => {
