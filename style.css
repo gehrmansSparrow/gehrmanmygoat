@@ -683,6 +683,248 @@ img {
   pointer-events: none;
 }
 
+/* ===== Dark scrolling reference layout ===== */
+html,
+body,
+#app,
+.main-shell.active,
+.main-scroll-area,
+.scroll-content,
+.dark-panel,
+.reuse-card,
+.cancel-section {
+  background: #181818 !important;
+}
+
+/* Only the title row remains fixed. The order-number row scrolls with content. */
+.sticky-order-shell {
+  flex: 0 0 auto !important;
+  box-shadow: 0 1px 0 rgba(154, 131, 255, .08) !important;
+}
+
+.sticky-order-shell .order-header {
+  height: 108px !important;
+  min-height: 108px !important;
+  grid-template-columns: 48px minmax(0, 1fr) 48px !important;
+  padding: calc(env(safe-area-inset-top) * .35) 16px 0 !important;
+}
+
+.sticky-order-shell .title-wrap h1 {
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  letter-spacing: -.35px !important;
+}
+
+.sticky-order-shell .close-btn span {
+  font-size: 45px !important;
+}
+
+/* Reference has no visible settings cog. Keep its hit target out of the layout. */
+.sticky-order-shell .gear-btn {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.main-scroll-area {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overscroll-behavior-y: auto !important;
+}
+
+.scroll-content {
+  min-height: 100% !important;
+  color: #fff !important;
+}
+
+.scroll-content > .order-row {
+  height: 40px !important;
+  min-height: 40px !important;
+  background: #3c3c3c !important;
+}
+
+.scroll-content > .order-row .order-number {
+  height: 40px !important;
+  background: #3c3c3c !important;
+  font-size: 24px !important;
+  letter-spacing: -.55px !important;
+}
+
+.status-card {
+  padding: 20px 17px 25px !important;
+}
+
+.eta-label {
+  font-size: 15px !important;
+  margin-bottom: 11px !important;
+}
+
+.status-row {
+  column-gap: 10px !important;
+}
+
+.eta-time {
+  font-size: 27px !important;
+}
+
+.status-title {
+  font-size: 23px !important;
+  font-weight: 800 !important;
+}
+
+.progress-wrap {
+  margin: 31px 25px 0 !important;
+  gap: 18px !important;
+}
+
+.progress-line {
+  height: 7px !important;
+}
+
+.progress-line::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #8bd1ad;
+  transform: translate(-10%, -50%);
+}
+
+.progress-fill {
+  width: 47% !important;
+  background: #8bd1ad !important;
+}
+
+.progress-dot {
+  left: 47% !important;
+  width: 18px !important;
+  height: 18px !important;
+  background: #8bd1ad !important;
+}
+
+.check-circle {
+  width: 43px !important;
+  height: 43px !important;
+  flex-basis: 43px !important;
+}
+
+.check-circle svg {
+  stroke: #a5a5a5 !important;
+}
+
+.works-text {
+  margin: 16px 25px 0 !important;
+  font-size: 15px !important;
+}
+
+.pickup-row {
+  margin-top: 29px !important;
+}
+
+.pickup-label {
+  font-size: 16px !important;
+}
+
+.pickup-address {
+  margin-top: 9px !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+}
+
+.link-purple {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+.details-btn {
+  height: 47px !important;
+  margin-top: 36px !important;
+  border-color: #8f79ff !important;
+  border-width: 2px !important;
+  border-radius: 25px !important;
+  font-size: 17px !important;
+}
+
+.help-link {
+  display: block !important;
+  margin: 30px 17px 0 !important;
+  font-size: 17px !important;
+}
+
+/* Reuse and cancellation content continue on the same dark page. */
+.reuse-card {
+  color: #fff !important;
+  padding: 0 34px 28px !important;
+}
+
+.reuse-heading-row {
+  gap: 9px !important;
+  padding-top: 0 !important;
+}
+
+.recycle-icon img {
+  width: 29px !important;
+  height: 29px !important;
+}
+
+.reuse-heading-row h2 {
+  font-size: 18px !important;
+  line-height: 1.05 !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+}
+
+.manage-link {
+  margin-top: 9px !important;
+  color: #8f79ff !important;
+  font-size: 17px !important;
+}
+
+.qr-wrap {
+  width: 160px !important;
+  height: 160px !important;
+  margin: 23px auto 0 !important;
+  padding: 7px !important;
+  background: #f4f4f4 !important;
+  border-radius: 5px !important;
+}
+
+.pickup-code-time {
+  margin-top: 25px !important;
+  color: #fff !important;
+  font-size: 27px !important;
+  font-weight: 600 !important;
+}
+
+.pickup-code-date {
+  margin-top: 9px !important;
+  color: #fff !important;
+  font-size: 17px !important;
+}
+
+.cancel-section {
+  margin: 0 34px !important;
+  padding: 27px 0 72px !important;
+  border-bottom: 1px solid #202020 !important;
+}
+
+.cancel-section h3 {
+  font-size: 18px !important;
+}
+
+.cancel-section p {
+  margin-top: 14px !important;
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+
+.cancel-section a {
+  color: #8f79ff !important;
+}
+
 /* Fixed header: compact black title row + compact gray order row. */
 .main-shell .spacer-top {
   display: none !important;
@@ -1096,4 +1338,74 @@ img {
 /* Keep a little separation between the dot and the checkmark. */
 .progress-wrap {
   gap: 20px !important;
+}
+
+/* Final target-reference overrides (must remain last). */
+html, body, #app, .main-shell.active, .main-scroll-area, .scroll-content,
+.dark-panel, .reuse-card, .cancel-section { background:#181818 !important; }
+.sticky-order-shell { flex:0 0 auto !important; box-shadow:0 1px 0 rgba(154,131,255,.08) !important; }
+.sticky-order-shell .order-header {
+  height:108px !important; min-height:108px !important;
+  grid-template-columns:48px minmax(0,1fr) 48px !important;
+  padding:calc(env(safe-area-inset-top) * .35) 16px 0 !important;
+}
+.sticky-order-shell .title-wrap h1 { font-size:20px !important; font-weight:800 !important; letter-spacing:-.35px !important; }
+.sticky-order-shell .close-btn span { font-size:45px !important; }
+.sticky-order-shell .gear-btn { visibility:visible !important; pointer-events:auto !important; }
+.main-scroll-area { flex:1 1 auto !important; min-height:0 !important; background:#181818 !important; }
+.scroll-content { min-height:100% !important; color:#fff !important; }
+.scroll-content > .order-row,
+.scroll-content > .order-row .order-number {
+  height:40px !important; min-height:40px !important; background:#3c3c3c !important;
+}
+.scroll-content > .order-row .order-number { font-size:24px !important; letter-spacing:-.55px !important; }
+.status-card { padding:20px 17px 25px !important; }
+.eta-label { font-size:15px !important; margin-bottom:11px !important; }
+.status-row { column-gap:10px !important; }
+.eta-time { font-size:27px !important; }
+.status-title { font-size:23px !important; font-weight:800 !important; }
+.progress-wrap { margin:31px 25px 0 !important; gap:18px !important; }
+.progress-line { height:7px !important; }
+.progress-line::before {
+  content:""; position:absolute; z-index:2; left:0; top:50%; width:18px; height:18px;
+  border-radius:50%; background:#8bd1ad; transform:translate(-10%,-50%);
+}
+.progress-fill { width:47% !important; background:#8bd1ad !important; }
+.progress-dot { left:47% !important; width:18px !important; height:18px !important; background:#8bd1ad !important; }
+.check-circle { width:43px !important; height:43px !important; flex-basis:43px !important; }
+.check-circle svg { stroke:#a5a5a5 !important; }
+.works-text { margin:16px 25px 0 !important; font-size:15px !important; }
+.pickup-row { margin-top:29px !important; }
+.pickup-label { font-size:16px !important; }
+.pickup-address { margin-top:9px !important; font-size:18px !important; font-weight:600 !important; }
+.link-purple { font-size:15px !important; font-weight:600 !important; }
+.details-btn {
+  height:47px !important; margin-top:36px !important; border-color:#8f79ff !important;
+  border-width:2px !important; border-radius:25px !important; font-size:17px !important;
+}
+.help-link { display:block !important; margin:30px 17px 0 !important; font-size:17px !important; }
+.reuse-card { color:#fff !important; padding:0 34px 28px !important; }
+.reuse-heading-row { gap:9px !important; padding-top:0 !important; }
+.recycle-icon img { width:29px !important; height:29px !important; }
+.reuse-heading-row h2 { font-size:18px !important; line-height:1.05 !important; font-weight:700 !important; color:#fff !important; }
+.manage-link { margin-top:9px !important; color:#8f79ff !important; font-size:17px !important; }
+.qr-wrap {
+  width:160px !important; height:160px !important; margin:23px auto 0 !important;
+  padding:7px !important; background:#f4f4f4 !important; border-radius:5px !important;
+}
+.pickup-code-time { margin-top:25px !important; color:#fff !important; font-size:27px !important; font-weight:600 !important; }
+.pickup-code-date { margin-top:9px !important; color:#fff !important; font-size:17px !important; }
+.cancel-section {
+  margin:0 34px !important; padding:27px 0 72px !important;
+  border-bottom:1px solid #202020 !important;
+}
+.cancel-section h3 { font-size:18px !important; }
+.cancel-section p { margin-top:14px !important; font-size:16px !important; line-height:1.35 !important; }
+.cancel-section a { color:#8f79ff !important; }
+
+@media (max-width:390px) {
+  .sticky-order-shell .title-wrap h1 { font-size:18px !important; }
+  .status-title { font-size:21px !important; }
+  .eta-time { font-size:25px !important; }
+  .reuse-card, .cancel-section { margin-left:0 !important; margin-right:0 !important; padding-left:28px !important; padding-right:28px !important; }
 }
