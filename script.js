@@ -35,7 +35,7 @@ function formatQrTime(date) {
 function formatLongDate(date) {
   return new Intl.DateTimeFormat("en-US", {
     weekday: "long",
-    month: "long",
+    month: "short",
     day: "numeric",
     year: "numeric"
   }).format(date);
