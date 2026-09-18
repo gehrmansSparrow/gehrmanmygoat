@@ -145,9 +145,9 @@ function resetOrderPull() {
 }
 
 mainView.addEventListener("touchstart", (event) => {
-  if (!mainView.classList.contains("tracked-mode") || mainView.querySelector(".main-scroll-area").scrollTop > 3) return;
+  if (mainView.querySelector(".main-scroll-area").scrollTop > 3) return;
   const touch = event.touches[0];
-  if (touch.clientY > window.innerHeight * .62) return;
+  if (touch.clientY > window.innerHeight * .48) return;
   returnGestureStartY = touch.clientY;
   returnGestureStartX = touch.clientX;
   returnGestureEligible = true;
@@ -163,9 +163,11 @@ mainView.addEventListener("touchmove", (event) => {
     resetOrderPull();
     return;
   }
-  if (dy > 6) {
-    event.preventDefault();
-    returnGestureDistance = Math.min(window.innerHeight * .56, dy * .72);
+  if (dy > 0) event.preventDefault();
+  if (dy > 12) {
+    returnGestureDistance = Math.min(window.innerHeight * .42, (dy - 12) * .52);
+    const ordersScroller = ordersView.querySelector(".orders-content");
+    if (!ordersView.classList.contains("gesture-preview")) ordersScroller.scrollTop = 0;
     ordersView.classList.add("gesture-preview");
     ordersView.setAttribute("aria-hidden", "false");
     mainView.classList.add("dragging-order");
@@ -175,7 +177,7 @@ mainView.addEventListener("touchmove", (event) => {
 
 ["touchend", "touchcancel"].forEach((name) => mainView.addEventListener(name, () => {
   if (!returnGestureEligible) return;
-  const threshold = 105 + returnGestureStartY * .24;
+  const threshold = 130 + returnGestureStartY * .34;
   const shouldOpen = name === "touchend" && returnGestureDistance >= threshold;
   returnGestureEligible = false;
   mainView.classList.remove("dragging-order");
