@@ -13,6 +13,7 @@ const manageView = document.getElementById("manageView");
 const ordersView = document.getElementById("ordersView");
 const mainTitle = document.getElementById("mainTitle");
 const qrSheetBackdrop = document.getElementById("qrSheetBackdrop");
+const receiptBackdrop = document.getElementById("receiptBackdrop");
 
 const settingsModal = document.getElementById("settingsModal");
 const orderNumberInput = document.getElementById("orderNumberInput");
@@ -288,6 +289,26 @@ qrSheetBackdrop.addEventListener("click", (event) => {
   if (event.target === qrSheetBackdrop) closeQrSheet();
 });
 
+function openReceipt(event) {
+  event.preventDefault();
+  receiptBackdrop.classList.add("active");
+  receiptBackdrop.setAttribute("aria-hidden", "false");
+  requestAnimationFrame(() => requestAnimationFrame(() => receiptBackdrop.classList.add("shown")));
+}
+
+function closeReceipt() {
+  receiptBackdrop.classList.remove("shown");
+  window.setTimeout(() => {
+    receiptBackdrop.classList.remove("active");
+    receiptBackdrop.setAttribute("aria-hidden", "true");
+  }, 340);
+}
+
+document.getElementById("receiptLink").addEventListener("click", openReceipt);
+receiptBackdrop.addEventListener("click", (event) => {
+  if (event.target === receiptBackdrop) closeReceipt();
+});
+
 /* Purple links behave like buttons visually, but intentionally do not navigate anywhere. */
 document.querySelectorAll('a[href="#"], .text-button').forEach((control) => {
   control.addEventListener("click", (event) => {
@@ -307,3 +328,11 @@ window.setInterval(renderDateTime, 15000);
 document.addEventListener("contextmenu", (event) => event.preventDefault(), { passive: false });
 document.addEventListener("dragstart", (event) => event.preventDefault(), { passive: false });
 document.querySelectorAll("img").forEach((img) => img.setAttribute("draggable", "false"));
+
+// Prevent Safari's double-tap page zoom while preserving ordinary taps and scrolling.
+let lastTouchEnd = 0;
+document.addEventListener("touchend", (event) => {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) event.preventDefault();
+  lastTouchEnd = now;
+}, { passive:false });

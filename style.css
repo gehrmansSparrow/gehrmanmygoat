@@ -1839,3 +1839,89 @@ html, body, #app, .main-shell.active, .main-scroll-area, .scroll-content,
   .qr-sheet-code { width:145px; height:145px; }
   .qr-sheet-time { margin-top:16px; }
 }
+
+/* Receipt, logo containment, fixed summary, and tap behavior. */
+html, body, button, a, input, .view, .sheet-view, .orders-view {
+  touch-action:manipulation;
+}
+html, body, #app { max-width:100%; overflow-x:hidden; }
+
+.traditions-round-logo,
+.restaurant-logo {
+  overflow:hidden !important;
+  box-sizing:border-box;
+}
+.traditions-round-logo strong {
+  display:block;
+  max-width:88%;
+  overflow:hidden;
+  white-space:nowrap;
+  font-size:7.5px !important;
+  letter-spacing:-.25px !important;
+}
+.traditions-round-logo small { font-size:4.5px !important; letter-spacing:1.5px !important; }
+.crane-logo { padding:4px; font-size:8px !important; white-space:nowrap; }
+.chipotle-logo { padding:0 !important; border:0 !important; background:#b5251c !important; }
+.chipotle-logo img { display:block; width:100%; height:100%; object-fit:contain; border-radius:50%; }
+
+.orders-summary > div { min-width:0; }
+.orders-summary > div:nth-child(2) { align-items:center; text-align:center; }
+.orders-summary > div:nth-child(2) span { white-space:nowrap; font-size:13px; }
+.orders-summary > div:nth-child(2) strong { font-size:18px; }
+.orders-summary > div:first-child strong {
+  display:block;
+  font-size:13.5px !important;
+  letter-spacing:-.3px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.receipt-backdrop {
+  position:fixed;
+  inset:0;
+  z-index:130;
+  background:rgba(0,0,0,.88);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity 330ms ease, visibility 0s linear 340ms;
+}
+.receipt-backdrop.active { visibility:visible; pointer-events:auto; transition-delay:0s; }
+.receipt-backdrop.shown { opacity:1; }
+.receipt-sheet {
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  min-height:49dvh;
+  box-sizing:border-box;
+  padding:38px 17px calc(30px + env(safe-area-inset-bottom));
+  border:1px solid #858585;
+  border-bottom:0;
+  border-radius:9px 9px 0 0;
+  background:#181818;
+  color:#fff;
+  transform:translateY(100%);
+  transition:transform 340ms cubic-bezier(.22,.72,.2,1);
+}
+.receipt-backdrop.shown .receipt-sheet { transform:translateY(0); }
+.receipt-sheet h1 { margin:0 0 26px; text-align:center; font-size:21px; line-height:1.2; }
+.receipt-sheet h2 { margin:0 0 14px; font-size:17px; }
+.receipt-item { display:grid; grid-template-columns:20px 1fr auto; gap:8px; align-items:center; font-size:16px; }
+.receipt-item strong { font-weight:400; }
+.receipt-rule { height:1px; margin:15px 0 18px; background:#202020; }
+.receipt-totals { margin:0; display:grid; grid-template-columns:1fr auto; row-gap:7px; font-size:16px; }
+.receipt-totals dt, .receipt-totals dd { margin:0; }
+.receipt-totals dd { text-align:right; }
+.receipt-totals dt:last-of-type, .receipt-totals dd:last-of-type { margin-top:1px; font-weight:800; font-size:18px; }
+.receipt-payment { height:43px; margin-top:34px; padding:0 12px; display:flex; align-items:center; gap:9px; background:#3d3b3b; }
+.receipt-payment > span { padding:5px 4px; background:#fff; color:#777; font-size:9px; font-style:italic; }
+.receipt-payment > span strong { color:#df202a; }
+.receipt-payment > b { font-size:16px; font-weight:400; }
+
+@media (max-height:720px) {
+  .receipt-sheet { min-height:57dvh; padding-top:25px; }
+  .receipt-sheet h1 { margin-bottom:18px; }
+  .receipt-payment { margin-top:22px; }
+}

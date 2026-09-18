@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#ff5500" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -134,16 +134,16 @@
             <button type="button">Reorder</button>
           </article>
           <article class="past-order-row reorder-row chipotle-order">
-            <div class="restaurant-logo chipotle-logo">CHIPOTLE</div>
+            <div class="restaurant-logo chipotle-logo"><img src="chipotle-logo.png" alt="Chipotle"></div>
             <div><strong>Chipotle</strong><span>Sep 7 · Pickup</span><p>Chicken Bowl, Chips</p></div>
             <button type="button">Reorder</button>
           </article>
           <article class="past-order-row chipotle-order">
-            <div class="restaurant-logo chipotle-logo">CHIPOTLE</div>
+            <div class="restaurant-logo chipotle-logo"><img src="chipotle-logo.png" alt="Chipotle"></div>
             <div><strong>Chipotle</strong><span>Sep 3 · Pickup</span><p>Steak Burrito, Fountain Drink</p><b>Closed</b></div>
           </article>
           <article class="past-order-row reorder-row chipotle-order">
-            <div class="restaurant-logo chipotle-logo">CHIPOTLE</div>
+            <div class="restaurant-logo chipotle-logo"><img src="chipotle-logo.png" alt="Chipotle"></div>
             <div><strong>Chipotle</strong><span>Aug 29 · Pickup</span><p>Chicken Quesadilla</p></div>
             <button type="button">Reorder</button>
           </article>
@@ -217,7 +217,7 @@
             <span>1</span>
             <span>[Dinner] entry to-go</span>
           </div>
-          <a href="#" class="receipt-link">View receipt</a>
+          <a id="receiptLink" href="#" class="receipt-link">View receipt</a>
         </section>
       </section>
     </main>
@@ -236,6 +236,24 @@
         <div class="qr-sheet-code"><img src="dummy-qr.png" alt="Demo reusable container QR code" draggable="false"></div>
         <div id="sheetQrTime" class="qr-sheet-time">--:--</div>
         <div id="sheetQrDate" class="qr-sheet-date">---</div>
+      </section>
+    </div>
+
+    <!-- Receipt sheet -->
+    <div id="receiptBackdrop" class="receipt-backdrop" aria-hidden="true">
+      <section class="receipt-sheet" role="dialog" aria-modal="true" aria-labelledby="receiptTitle">
+        <h1 id="receiptTitle">Traditions at Scott - Reusepass</h1>
+        <h2>Order details</h2>
+        <div class="receipt-item"><span>1</span><span>[Dinner] entry to-go</span><strong>$15.00</strong></div>
+        <div class="receipt-rule"></div>
+        <dl class="receipt-totals">
+          <dt>Subtotal</dt><dd>1M</dd>
+          <dt>Sales tax</dt><dd>$0.00</dd>
+          <dt>Service fee</dt><dd>$0.00</dd>
+          <dt>Tip</dt><dd>$0.00</dd>
+          <dt>Total</dt><dd>1M</dd>
+        </dl>
+        <div class="receipt-payment"><span>BUCK<strong>ID</strong></span><b>Traditions ToGo</b></div>
       </section>
     </div>
 
