@@ -22,8 +22,11 @@
         <div class="spacer-top"></div>
 
         <header class="order-header">
-          <button class="icon-btn close-btn" aria-label="Close"><span>×</span></button>
-          <div class="title-wrap"><h1>Traditions at Scott - Reusepass</h1></div>
+          <button id="mainCloseBtn" class="icon-btn close-btn" aria-label="Close order">
+            <span class="main-x">×</span>
+            <svg class="main-down" viewBox="0 0 32 20" aria-hidden="true"><path d="M3 3l13 13L29 3"/></svg>
+          </button>
+          <div class="title-wrap"><h1 id="mainTitle">Traditions at Scott - Reusepass</h1></div>
 <button id="refreshTimeBtn" class="icon-btn gear-btn" aria-label="Order settings">
   <svg viewBox="0 0 24 24" aria-hidden="true">
     <path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.3 7.3 0 0 0-1.62-.94L14.38 2.8a.5.5 0 0 0-.49-.4h-3.84a.5.5 0 0 0-.49.4L9.2 5.32c-.57.24-1.11.56-1.61.94L5.2 5.3a.5.5 0 0 0-.61.22L2.67 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.07.64-.07.96 0 .31.02.62.07.93L2.79 14.53a.5.5 0 0 0-.12.64l1.92 3.32a.5.5 0 0 0 .61.22l2.39-.96c.5.39 1.04.7 1.61.94l.36 2.52c.04.24.25.4.49.4h3.84c.24 0 .45-.17.49-.4l.36-2.52c.57-.24 1.11-.56 1.62-.94l2.39.96a.5.5 0 0 0 .61-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.02-1.59ZM12 15.3A3.3 3.3 0 1 1 12 8.7a3.3 3.3 0 0 1 0 6.6Z"/>
@@ -72,7 +75,7 @@
 
           <section class="reuse-card">
             <div class="reuse-heading-row">
-              <div class="recycle-icon" aria-hidden="true"><img src="recycle-reference.png?v=transparent-3" alt=""></div>
+              <div class="recycle-icon" aria-hidden="true"><img src="recycle-green.png?v=solid-green-1" alt=""></div>
               <h2>Return containers within 3 days</h2>
               <a href="#" class="manage-link open-manage">Manage containers</a>
             </div>
@@ -91,6 +94,58 @@
           </section>
         </div>
       </div>
+    </main>
+
+    <!-- Orders list shown after closing the default order page -->
+    <main id="ordersView" class="orders-view" aria-hidden="true">
+      <div class="orders-status-space" aria-hidden="true"></div>
+      <div class="orders-content">
+        <h1>Orders</h1>
+        <div class="orders-search" aria-label="Search orders">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+          <span>Search orders</span>
+        </div>
+
+        <h2>Active orders</h2>
+        <section class="active-order-card">
+          <div class="traditions-round-logo"><strong>TRADITIONS</strong><small>AT SCOTT</small></div>
+          <div class="active-order-copy">
+            <strong>Traditions at Scott - Reus...</strong>
+            <span>Pickup</span>
+            <p>[Dinner] entry to-go</p>
+            <b>Ready by <span id="ordersReadyTime">--:--</span>–<span class="orders-ready-time-copy">--:--</span></b>
+          </div>
+          <button id="trackOrderBtn" class="track-btn" type="button">Track</button>
+        </section>
+
+        <h2 class="past-heading">Past orders</h2>
+        <section class="past-order-list">
+          <article class="past-order-row">
+            <div class="restaurant-logo crane-logo">CraneCafé</div>
+            <div><strong>Crane Cafe</strong><span>Sep 14 · Pickup</span><p>Chicken Caesar on Ciabatta, Iced Green Tea</p><b>Closed</b></div>
+          </article>
+          <article class="past-order-row">
+            <div class="traditions-round-logo"><strong>TRADITIONS</strong><small>AT SCOTT</small></div>
+            <div><strong>Traditions at Scott - POS</strong><span>Sep 10 · Pickup</span><p>Entry Swipe</p><b>Closed</b></div>
+          </article>
+          <article class="past-order-row reorder-row">
+            <div class="traditions-round-logo"><strong>TRADITIONS</strong><small>AT SCOTT</small></div>
+            <div><strong>Traditions at Scott - Reusepass</strong><span>Sep 10 · Pickup</span><p>[Dinner] entry to-go</p></div>
+            <button type="button">Reorder</button>
+          </article>
+        </section>
+      </div>
+      <div class="orders-summary">
+        <div><span>Your order from</span><strong>Traditions at Scott - Reusepass</strong></div>
+        <div><span>Pickup between</span><strong id="ordersPickupTime">--:--</strong></div>
+        <div class="orders-summary-mark">✓</div>
+      </div>
+      <nav class="orders-nav" aria-label="Primary">
+        <div><span>⌂</span><small>Home</small></div>
+        <div><span>◇</span><small>Offers</small></div>
+        <div class="selected"><span>▤</span><small>Orders</small></div>
+        <div><span>◎</span><small>Account</small></div>
+      </nav>
     </main>
 
     <!-- Order details view -->
@@ -123,7 +178,7 @@
 
         <section class="detail-block reuse-detail">
           <div class="detail-reuse-row">
-            <div class="mini-recycle"><img src="recycle-reference.png?v=transparent-3" alt=""></div>
+            <div class="mini-recycle"><img src="recycle-green.png?v=solid-green-1" alt=""></div>
             <div>
               <div class="reuse-deadline">
                 Return containers by <span id="returnDate">--/--/----</span>

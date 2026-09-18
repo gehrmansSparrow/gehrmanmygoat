@@ -10,6 +10,8 @@ const mainOrderNumber = document.getElementById("mainOrderNumber");
 const detailsOrderNumber = document.getElementById("detailsOrderNumber");
 const helpView = document.getElementById("helpView");
 const manageView = document.getElementById("manageView");
+const ordersView = document.getElementById("ordersView");
+const mainTitle = document.getElementById("mainTitle");
 
 const settingsModal = document.getElementById("settingsModal");
 const orderNumberInput = document.getElementById("orderNumberInput");
@@ -71,11 +73,39 @@ function renderDateTime() {
   qrTime.textContent = formatQrTime(appDateTime);
   qrDate.textContent = formatLongDate(appDateTime);
   detailsPickupDate.textContent = formatDetailsPickup(appDateTime);
+  const compactTime = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric", minute: "2-digit", hour12: false
+  }).format(appDateTime);
+  document.getElementById("ordersReadyTime").textContent = compactTime;
+  document.querySelector(".orders-ready-time-copy").textContent = compactTime;
+  document.getElementById("ordersPickupTime").textContent = compactTime;
 
   const due = new Date(appDateTime);
   due.setDate(due.getDate() + 3);
   returnDate.textContent = formatSlashDate(due);
 }
+
+function openOrders() {
+  renderDateTime();
+  ordersView.classList.add("active");
+  ordersView.setAttribute("aria-hidden", "false");
+  ordersView.scrollTop = 0;
+  requestAnimationFrame(() => requestAnimationFrame(() => ordersView.classList.add("shown")));
+}
+
+function closeOrdersToTrackedOrder() {
+  mainView.classList.add("tracked-mode");
+  mainTitle.textContent = "Your order";
+  document.getElementById("mainScrollArea").scrollTop = 0;
+  ordersView.classList.remove("shown");
+  window.setTimeout(() => {
+    ordersView.classList.remove("active");
+    ordersView.setAttribute("aria-hidden", "true");
+  }, 320);
+}
+
+document.getElementById("mainCloseBtn").addEventListener("click", openOrders);
+document.getElementById("trackOrderBtn").addEventListener("click", closeOrdersToTrackedOrder);
 
 function renderOrderNumber() {
   mainOrderNumber.textContent = `ORDER #${orderNumber}`;

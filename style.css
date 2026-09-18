@@ -1646,3 +1646,106 @@ html, body, #app, .main-shell.active, .main-scroll-area, .scroll-content,
   .manage-content h2 { font-size:28px; }
   .program-card strong { font-size:18px; }
 }
+
+/* Final spacing and artwork match from the supplied reference screenshot. */
+.sticky-order-shell .title-wrap {
+  transform:translateX(5px) !important;
+}
+
+.progress-line {
+  z-index:1 !important;
+}
+.check-circle {
+  position:relative !important;
+  z-index:3 !important;
+  background:#ededed !important;
+}
+
+.progress-wrap {
+  margin-top:8px !important;
+}
+.works-text {
+  margin-top:8px !important;
+}
+.pickup-row {
+  margin-top:7px !important;
+}
+.details-btn {
+  margin-top:26px !important;
+}
+.help-link {
+  margin-top:21px !important;
+}
+.status-card {
+  padding-bottom:20px !important;
+}
+.reuse-heading-row {
+  row-gap:5px !important;
+}
+.qr-wrap {
+  margin-top:16px !important;
+}
+
+/* Orders list and the tracked-order return state. */
+.main-down { display:none; width:30px; height:20px; fill:none; stroke:#8f79ff; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+.main-shell.tracked-mode .main-x { display:none; }
+.main-shell.tracked-mode .main-down { display:block; }
+.main-shell.tracked-mode .title-wrap { transform:none !important; }
+.main-shell.tracked-mode .title-wrap h1 { font-size:20px !important; }
+
+.orders-view {
+  position:fixed; inset:0; z-index:55; display:block;
+  height:100dvh; overflow-y:auto; background:#181818; color:#fff;
+  transform:translateY(100%); visibility:hidden; pointer-events:none;
+  transition:transform 320ms cubic-bezier(.22,.72,.2,1), visibility 0s linear 320ms;
+  -webkit-overflow-scrolling:touch;
+}
+.orders-view.active { visibility:visible; pointer-events:auto; transition-delay:0s; }
+.orders-view.active.shown { transform:translateY(0); }
+.orders-status-space { height:82px; background:#181818; }
+.orders-content { padding:12px 16px 198px; }
+.orders-content > h1 { margin:0 0 14px; font-size:31px; line-height:1.1; }
+.orders-search { height:48px; border:1px solid #737373; border-radius:27px; display:flex; align-items:center; justify-content:center; color:#cfcfcf; font-size:17px; }
+.orders-search svg { width:24px; height:24px; margin-right:84px; fill:none; stroke:#cfcfcf; stroke-width:2.2; }
+.orders-search span { margin-left:-55px; }
+.orders-content > h2 { margin:42px 0 13px; font-size:16px; }
+.active-order-card { min-height:112px; padding:16px; border:1px solid #4e4e4e; border-radius:9px; display:grid; grid-template-columns:61px minmax(0,1fr) 88px; gap:12px; align-items:start; }
+.traditions-round-logo, .restaurant-logo { width:61px; height:61px; border-radius:50%; background:#fff; color:#111; display:flex; flex-direction:column; align-items:center; justify-content:center; flex:0 0 auto; }
+.traditions-round-logo strong { font-size:10px; letter-spacing:-.5px; }
+.traditions-round-logo small { font-size:5px; letter-spacing:2px; }
+.active-order-copy { min-width:0; display:flex; flex-direction:column; gap:4px; font-size:14px; }
+.active-order-copy > strong { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:16px; }
+.active-order-copy > span, .past-order-row span { color:#bdbdbd; }
+.active-order-copy p, .past-order-row p { margin:0; }
+.active-order-copy b { margin-top:9px; font-size:14px; }
+.track-btn { height:43px; border:0; border-radius:25px; background:#8ccbab; color:#17201d; font-size:16px; align-self:start; }
+.orders-content > .past-heading { margin-top:31px; }
+.past-order-list { margin:0 -16px; }
+.past-order-row { min-height:126px; display:flex; gap:13px; align-items:center; padding:16px; border-bottom:1px solid #595959; }
+.past-order-row > div:nth-child(2) { min-width:0; display:flex; flex-direction:column; gap:5px; font-size:14px; }
+.past-order-row strong { font-size:16px; }
+.past-order-row b { color:#f0a13b; font-weight:500; }
+.crane-logo { color:#d51d58; font-size:12px; font-weight:800; }
+.reorder-row { display:grid; grid-template-columns:61px minmax(0,1fr) 98px; }
+.reorder-row button { height:42px; border:1px solid #707070; border-radius:23px; background:transparent; color:#8f79ff; font-size:16px; }
+.orders-summary { position:fixed; z-index:2; left:0; right:0; bottom:74px; min-height:77px; padding:14px 17px; background:#181818; border-top:1px solid #444; display:grid; grid-template-columns:minmax(0,1fr) auto 45px; gap:12px; align-items:center; }
+.orders-summary > div:not(.orders-summary-mark) { display:flex; flex-direction:column; gap:7px; }
+.orders-summary span { color:#cfcfcf; font-size:14px; }
+.orders-summary strong { font-size:16px; white-space:nowrap; }
+.orders-summary-mark { width:45px; height:45px; border-radius:50%; background:#fff; color:#57516f; display:grid; place-items:center; font-size:25px; font-weight:900; }
+.orders-nav { position:fixed; z-index:2; left:0; right:0; bottom:0; height:74px; padding-bottom:env(safe-area-inset-bottom); background:#181818; border-top:1px solid #444; display:grid; grid-template-columns:repeat(4,1fr); }
+.orders-nav div { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; color:#cfcfcf; }
+.orders-nav span { font-size:26px; line-height:1; }
+.orders-nav small { font-size:12px; }
+.orders-nav .selected span { color:#ff5a00; }
+.orders-nav .selected small { color:#fff; }
+
+@media (max-width:390px) {
+  .orders-status-space { height:70px; }
+  .orders-content { padding-left:15px; padding-right:15px; }
+  .orders-search svg { margin-right:70px; }
+  .active-order-card { grid-template-columns:56px minmax(0,1fr) 82px; padding:13px; gap:10px; }
+  .traditions-round-logo, .restaurant-logo { width:56px; height:56px; }
+  .orders-summary { grid-template-columns:minmax(0,1fr) auto 42px; padding-left:14px; padding-right:14px; }
+  .orders-summary strong { font-size:14px; }
+}
