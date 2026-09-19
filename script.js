@@ -44,7 +44,6 @@ function calculateOrderNumber(date) {
 }
 
 let orderNumber = calculateOrderNumber(appDateTime);
-let orderNumberIsManual = false;
 
 function formatMainTime(date) {
   let hours = date.getHours();
@@ -97,10 +96,6 @@ function formatSlashDate(date) {
 
 function renderDateTime() {
   const currentTime = new Date();
-  if (!orderNumberIsManual) {
-    orderNumber = calculateOrderNumber(currentTime);
-    renderOrderNumber();
-  }
   mainTime.textContent = formatMainTime(currentTime);
   qrTime.textContent = formatQrTime(currentTime);
   qrDate.textContent = formatLongDate(currentTime);
@@ -150,7 +145,6 @@ function renderOrderNumber() {
 
 function setToCurrentTime() {
   appDateTime = new Date();
-  orderNumberIsManual = false;
   renderDateTime();
 }
 
@@ -177,7 +171,6 @@ document.getElementById("saveOrderNumberBtn").addEventListener("click", () => {
   const value = Math.floor(Number(orderNumberInput.value));
   if (Number.isFinite(value) && value > 0) {
     orderNumber = value;
-    orderNumberIsManual = true;
     renderOrderNumber();
     closeSettings();
   } else {
