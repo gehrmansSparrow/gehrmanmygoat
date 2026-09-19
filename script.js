@@ -22,16 +22,29 @@ const orderNumberInput = document.getElementById("orderNumberInput");
 let appDateTime = new Date();
 
 function calculateOrderNumber(date) {
-  const openingMinutes = 8 * 60;
+  const day = date.getDay();
+  const isWeekend = day === 0 || day === 6;
+  const openingMinutes = (isWeekend ? 9 : 7) * 60;
   const closingMinutes = 21 * 60;
   const currentMinutes = Math.min(closingMinutes, Math.max(openingMinutes,
     date.getHours() * 60 + date.getMinutes()));
   const fourPmMinutes = 16 * 60;
-  const ordersPerMinute = 21 / 80; // #69 at 4:00 PM to #90 at 5:20 PM
-  return Math.max(1, Math.round(69 + (currentMinutes - fourPmMinutes) * ordersPerMinute));
+
+  if (currentMinutes <= fourPmMinutes) {
+    // Start at order #1 when the location opens, then reach #69 at 4:00 PM.
+    const morningProgress = (currentMinutes - openingMinutes)
+      / (fourPmMinutes - openingMinutes);
+    return Math.max(1, Math.round(1 + morningProgress * 68));
+  }
+
+  // The observed afternoon rate was #69 at 4:00 PM and #90 at 5:20 PM.
+  const afternoonOrdersPerMinute = 21 / 80;
+  return Math.round(69
+    + (currentMinutes - fourPmMinutes) * afternoonOrdersPerMinute);
 }
 
 let orderNumber = calculateOrderNumber(appDateTime);
+let orderNumberIsManual = false;
 
 function formatMainTime(date) {
   let hours = date.getHours();
@@ -84,6 +97,10 @@ function formatSlashDate(date) {
 
 function renderDateTime() {
   const currentTime = new Date();
+  if (!orderNumberIsManual) {
+    orderNumber = calculateOrderNumber(currentTime);
+    renderOrderNumber();
+  }
   mainTime.textContent = formatMainTime(currentTime);
   qrTime.textContent = formatQrTime(currentTime);
   qrDate.textContent = formatLongDate(currentTime);
@@ -133,6 +150,7 @@ function renderOrderNumber() {
 
 function setToCurrentTime() {
   appDateTime = new Date();
+  orderNumberIsManual = false;
   renderDateTime();
 }
 
@@ -159,6 +177,7 @@ document.getElementById("saveOrderNumberBtn").addEventListener("click", () => {
   const value = Math.floor(Number(orderNumberInput.value));
   if (Number.isFinite(value) && value > 0) {
     orderNumber = value;
+    orderNumberIsManual = true;
     renderOrderNumber();
     closeSettings();
   } else {
